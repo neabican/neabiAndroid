@@ -1,4 +1,6 @@
 package br.edu.ifsc.neabiAndroid.domain.model
 
-class Course {
-}
+data class Course(
+    val name: String,
+    val description: String
+)
