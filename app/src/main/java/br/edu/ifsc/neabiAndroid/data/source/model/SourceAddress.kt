@@ -1,4 +1,4 @@
-package br.edu.ifsc.neabiAndroid.source.model
+package br.edu.ifsc.neabiAndroid.data.source.model
 
 import com.squareup.moshi.Json
 

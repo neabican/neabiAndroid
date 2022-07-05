@@ -1,8 +1,8 @@
-package br.edu.ifsc.neabiAndroid.source.model
+package br.edu.ifsc.neabiAndroid.data.source.model
 
 import com.squareup.moshi.Json
 
-data class SourceProgram(
+data class SourceProject(
     val pk: Int,
 
     @Json(name = "nome")
@@ -11,6 +11,6 @@ data class SourceProgram(
     @Json(name = "descricao")
     val description: String,
 
-    val link: String = "",
+    val link: String,
     val campus: Int
 )

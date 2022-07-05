@@ -1,6 +1,6 @@
-package br.edu.ifsc.neabiAndroid.domain.model
+package br.edu.ifsc.neabiAndroid.data.domain
 
-data class Project(
+data class Program(
     val pk: Int,
     val name: String,
     val description: String,
