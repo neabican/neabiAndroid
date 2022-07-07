@@ -5,15 +5,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import br.edu.ifsc.neabiAndroid.data.local.entities.CourseEntity
-
+import br.edu.ifsc.neabiAndroid.data.local.entities.CampusEntity
 
 @Dao
-interface CourseDao {
+interface CampusDao {
 
-    @Query("SELECT * FROM course")
-    fun getAllCourse(): LiveData<List<CourseEntity>>
+    @Query("SELECT * FROM campus")
+    fun getAllCampus(): LiveData<List<CampusEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllCourse(courses: List<CourseEntity>)
+    fun insertAllCampus(campus: List<CampusEntity>)
 }
