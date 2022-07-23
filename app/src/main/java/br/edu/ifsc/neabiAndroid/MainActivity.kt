@@ -3,26 +3,34 @@ package br.edu.ifsc.neabiAndroid
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
+import br.edu.ifsc.neabiAndroid.presentation.CampusViewModel
+import br.edu.ifsc.neabiAndroid.presentation.CampusViewModelFactory
+import br.edu.ifsc.neabiAndroid.presentation.showCampus
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val campusViewModel: CampusViewModel by viewModels<CampusViewModel>{
+            CampusViewModelFactory(
+                (this.applicationContext as NeabiCanApplication).neabicanDatabase.campusDao()
+            )
+        }
+
         setContent {
             NeabiAndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NeabicanApp()
+                    NeabicanApp(campusViewModel)
                 }
             }
         }
@@ -30,6 +38,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NeabicanApp() {
-    Text(text = "Test")
+fun NeabicanApp(
+    campusViewModel: CampusViewModel
+) {
+    showCampus(campusViewModel)
 }

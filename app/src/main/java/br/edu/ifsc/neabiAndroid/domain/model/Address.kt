@@ -1,4 +1,4 @@
-package br.edu.ifsc.neabiAndroid.data.domain
+package br.edu.ifsc.neabiAndroid.domain.model
 
 data class Address(
     val city: String,

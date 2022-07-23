@@ -3,7 +3,6 @@ package br.edu.ifsc.neabiAndroid.data.local.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import br.edu.ifsc.neabiAndroid.data.domain.Course
 
 @Entity(
     tableName = "courses",
