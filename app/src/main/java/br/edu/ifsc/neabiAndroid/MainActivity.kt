@@ -10,19 +10,14 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
-import br.edu.ifsc.neabiAndroid.presentation.CampusViewModel
-import br.edu.ifsc.neabiAndroid.presentation.CampusViewModelFactory
-import br.edu.ifsc.neabiAndroid.presentation.showCampus
+//import br.edu.ifsc.neabiAndroid.presentation.CampusViewModel
+//import br.edu.ifsc.neabiAndroid.presentation.CampusViewModelFactory
+//import br.edu.ifsc.neabiAndroid.presentation.showCampus
+import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val campusViewModel: CampusViewModel by viewModels<CampusViewModel>{
-            CampusViewModelFactory(
-                (this.applicationContext as NeabiCanApplication).neabicanDatabase.campusDao()
-            )
-        }
 
         setContent {
             NeabiAndroidTheme {
@@ -30,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NeabicanApp(campusViewModel)
+                    NeabicanApp()
                 }
             }
         }
@@ -38,8 +33,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NeabicanApp(
-    campusViewModel: CampusViewModel
-) {
-    showCampus(campusViewModel)
+fun NeabicanApp() {
+    HomeView()
 }
