@@ -6,15 +6,15 @@ import com.squareup.moshi.Json
 data class CoursesDto(
     val pk: Int,
     val link: String,
-
     @Json(name = "curso")
     val courseDto: CourseDto
 ){
-    fun toDomain(): Courses{
+    fun toDomain(campusPk: Int): Courses{
         return Courses(
             pk = pk,
             link = link,
-            course = courseDto.toDomain()
+            course = courseDto.toDomain(),
+            campus = campusPk
         )
     }
 }

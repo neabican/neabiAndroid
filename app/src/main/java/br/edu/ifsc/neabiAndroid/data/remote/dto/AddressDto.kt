@@ -4,6 +4,7 @@ import br.edu.ifsc.neabiAndroid.domain.model.Address
 import com.squareup.moshi.Json
 
 data class AddressDto(
+    val pk: Int,
 
     @Json(name="cidade")
     val city: String,
@@ -20,12 +21,13 @@ data class AddressDto(
     @Json(name = "cep")
     val zip_code: String,
 
-    //String? Será necessario fazer o calculo de distancia?
     val latitude: String,
+
     val longitude: String
 ){
     fun toDomain(): Address{
         return Address(
+            pk = pk,
             city = city,
             state = state,
             public_place = public_place,

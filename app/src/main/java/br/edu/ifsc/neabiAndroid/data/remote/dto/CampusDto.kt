@@ -9,6 +9,9 @@ data class CampusDto(
     @Json(name = "nome")
     val name: String,
 
+    @Json(name = "photo")
+    val image: String,
+
     @Json(name = "instituicao")
     val institutionDto: InstitutionDto,
 
@@ -31,9 +34,10 @@ data class CampusDto(
         return Campus(
             pk = pk,
             name = name,
+            image = image,
             institution = institutionDto.toDomain(),
             address = addressDto.toDomain(),
-            courses = courses.map { it.toDomain() },
+            courses = courses.map { it.toDomain(pk) },
             program = programDto.map { it.toDomain() },
             project = projectDto.map { it.toDomain() },
             affirmativeAction = affirmativeActionDto.map{ it.toDomain() }
