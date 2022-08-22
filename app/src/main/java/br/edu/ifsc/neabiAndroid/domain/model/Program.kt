@@ -8,14 +8,16 @@ data class Program(
     val description: String,
     val link: String,
     val campus: Int
-){
-    fun toEntity(): ProgramEntity {
-        return ProgramEntity(
-            pk = pk,
-            name = name,
-            description = description,
-            link = link,
-            campusPk = campus
+)
+
+fun List<Program>.asEntityModel(): List<ProgramEntity>{
+    return map {
+        ProgramEntity(
+            pk = it.pk,
+            name = it.name,
+            description = it.description,
+            link = it.link,
+            campusPk = it.campus
         )
     }
 }

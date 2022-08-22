@@ -2,27 +2,39 @@ package br.edu.ifsc.neabiAndroid.util
 
 import br.edu.ifsc.neabiAndroid.data.local.entities.*
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
+import br.edu.ifsc.neabiAndroid.domain.model.Institution
+import br.edu.ifsc.neabiAndroid.domain.model.asEntityModel
 
-class DBMapper(data: List<Campus>) {
-    var address: List<AddressEntity> = mutableListOf()
-    var affirmativeAction: List<AffirmativeActionEntity> = mutableListOf()
-    var campus: List<CampusEntity> = mutableListOf()
-    var course: List<CourseEntity> = mutableListOf()
-    var couses: List<CoursesEntity> = mutableListOf()
-    var institution: List<InstitutionEntity> = mutableListOf()
-    var program: List<ProgramEntity> = mutableListOf()
-    var project: List<ProjectEntity> = mutableListOf()
+class DBMapper(data: List<Institution>) {
+    var address: MutableList<AddressEntity> = mutableListOf()
+    var affirmativeAction: MutableList<AffirmativeActionEntity> = mutableListOf()
+    var campus: MutableList<CampusEntity> = mutableListOf()
+    var course: MutableList<CourseEntity> = mutableListOf()
+    var courses: MutableList<CoursesEntity> = mutableListOf()
+    var institution: MutableList<InstitutionEntity> = mutableListOf()
+    var program: MutableList<ProgramEntity> = mutableListOf()
+    var project: MutableList<ProjectEntity> = mutableListOf()
 
     init {
-        address = data.map { it.address.toEntity() }.distinct()
-        campus = data.map { it.toEntity() }.distinct()
-        institution = data.map { it.institution.toEntity() }.distinct()
-        for(item in data){
-            affirmativeAction = item.affirmativeAction.map { it.toEntity() }
-            course = item.courses.map { it.course.toEntity() }
-            couses = item.courses.map { it.toEntity() }
-            program = item.program.map { it.toEntity() }
-            project = item.project.map { it.toEntity() }
+        institution.addAll(data.map { it.toEntity() })
+        for (items in data){
+            campus.addAll(items.campus.asEntityModel())
+            items.campus.map {
+                address.add(it.address.toEntity())
+                affirmativeAction.addAll(it.affirmativeAction.asEntityModel())
+                courses.addAll(it.courses.asEntityModel())
+                course.addAll(
+                    it.courses.map { index ->
+                        index.course.toEntity()
+                    }
+                )
+                program.addAll(it.program.asEntityModel())
+                project.addAll(it.project.asEntityModel())
+            }
+            course.distinct()
+            project.distinct()
+            project.distinct()
+            affirmativeAction.distinct()
         }
     }
 }

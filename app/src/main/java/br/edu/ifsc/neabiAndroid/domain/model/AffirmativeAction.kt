@@ -8,14 +8,16 @@ data class AffirmativeAction(
     val description: String,
     val link: String,
     val campus: Int
-){
-    fun toEntity(): AffirmativeActionEntity {
-        return AffirmativeActionEntity(
-            pk = pk,
-            name = name,
-            description = description,
-            link = link,
-            campusPk = campus
+)
+
+fun List<AffirmativeAction>.asEntityModel() : List<AffirmativeActionEntity>{
+    return map{
+        AffirmativeActionEntity(
+            pk = it.pk,
+            name = it.name,
+            description = it.description,
+            link = it.link,
+            campusPk = it.campus
         )
     }
 }

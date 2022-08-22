@@ -7,13 +7,15 @@ data class Courses(
     val link: String,
     val course: Course,
     val campus: Int
-){
-    fun toEntity(): CoursesEntity {
-        return CoursesEntity(
-            pk = pk,
-            link = link,
-            coursePk = course.pk,
-            campusPk = campus
+)
+
+fun List<Courses>.asEntityModel(): List<CoursesEntity>{
+    return map {
+        CoursesEntity(
+            pk = it.pk,
+            link = it.link,
+            coursePk = it.course.pk,
+            campusPk = it.campus
         )
     }
 }
