@@ -17,6 +17,7 @@ import br.edu.ifsc.neabiAndroid.data.local.entities.*
 )
 abstract class NeabicanDatabase: RoomDatabase() {
 
+    abstract fun DBVersionDao(): DBVersionDao
     abstract fun institutionDao(): InstitutionDao
     abstract fun addressDao(): AddressDao
     abstract fun courseDao(): CourseDao

@@ -11,14 +11,14 @@ import androidx.room.PrimaryKey
             entity = CourseEntity::class,
             parentColumns = arrayOf("pk"),
             childColumns = arrayOf("coursePk"),
-            onDelete = ForeignKey.RESTRICT,
+            onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = CampusEntity::class,
             parentColumns = arrayOf("pk"),
             childColumns = arrayOf("campusPk"),
-            onDelete = ForeignKey.RESTRICT,
+            onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
         )
     ]

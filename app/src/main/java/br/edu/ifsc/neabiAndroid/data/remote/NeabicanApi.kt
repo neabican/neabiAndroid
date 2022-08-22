@@ -1,6 +1,7 @@
 package br.edu.ifsc.neabiAndroid.data.remote
 
 import br.edu.ifsc.neabiAndroid.data.remote.dto.CampusDto
+import br.edu.ifsc.neabiAndroid.data.remote.dto.DBVersionDto
 import br.edu.ifsc.neabiAndroid.data.remote.dto.InstitutionDto
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonReader
@@ -40,6 +41,10 @@ private val retrofit = Retrofit.Builder()
 interface NeabicanApiService{
     @GET("api/instituicoes")
     suspend fun getInitialData(): List<InstitutionDto>
+
+    //Criar end point na API
+    @GET("api/DBVersion???")
+    suspend fun getDatabaseVersion(): DBVersionDto
 }
 
 object NeabicanApi{

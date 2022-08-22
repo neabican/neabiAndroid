@@ -5,7 +5,7 @@ import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.domain.model.Institution
 import br.edu.ifsc.neabiAndroid.domain.model.asEntityModel
 
-class DBMapper(data: List<Institution>) {
+class DBMapper() {
     var address: MutableList<AddressEntity> = mutableListOf()
     var affirmativeAction: MutableList<AffirmativeActionEntity> = mutableListOf()
     var campus: MutableList<CampusEntity> = mutableListOf()
@@ -14,8 +14,9 @@ class DBMapper(data: List<Institution>) {
     var institution: MutableList<InstitutionEntity> = mutableListOf()
     var program: MutableList<ProgramEntity> = mutableListOf()
     var project: MutableList<ProjectEntity> = mutableListOf()
+    var mapDone= false
 
-    init {
+    fun cast(data: List<Institution>){
         institution.addAll(data.map { it.toEntity() })
         for (items in data){
             campus.addAll(items.campus.asEntityModel())
@@ -36,5 +37,6 @@ class DBMapper(data: List<Institution>) {
             project.distinct()
             affirmativeAction.distinct()
         }
+        mapDone = true
     }
 }

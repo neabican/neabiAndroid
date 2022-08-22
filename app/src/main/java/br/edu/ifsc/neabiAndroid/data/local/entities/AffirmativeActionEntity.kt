@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
             entity = CampusEntity::class,
             parentColumns = arrayOf("pk"),
             childColumns = arrayOf("campusPk"),
-            onDelete = RESTRICT,
+            onDelete = CASCADE,
             onUpdate = CASCADE
         )
     ]

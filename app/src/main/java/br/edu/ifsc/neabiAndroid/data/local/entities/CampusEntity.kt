@@ -11,14 +11,14 @@ import androidx.room.PrimaryKey
             entity = AddressEntity::class,
             parentColumns = arrayOf("pk"),
             childColumns = arrayOf("addressPk"),
-            onDelete = ForeignKey.RESTRICT,
+            onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = InstitutionEntity::class,
             parentColumns = arrayOf("pk"),
             childColumns = arrayOf("institutionPk"),
-            onDelete = ForeignKey.RESTRICT,
+            onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
         )
     ]

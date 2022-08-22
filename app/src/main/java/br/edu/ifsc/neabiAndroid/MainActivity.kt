@@ -12,6 +12,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.edu.ifsc.neabiAndroid.data.local.NeabicanDatabase
+import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.domain.repository.InitializationRepository
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
 //import br.edu.ifsc.neabiAndroid.presentation.CampusViewModel

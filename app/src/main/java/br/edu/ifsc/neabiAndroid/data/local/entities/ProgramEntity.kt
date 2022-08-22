@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
             parentColumns = arrayOf("pk"),
             childColumns = arrayOf("campusPk"),
             onUpdate = ForeignKey.CASCADE,
-            onDelete = ForeignKey.RESTRICT
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
