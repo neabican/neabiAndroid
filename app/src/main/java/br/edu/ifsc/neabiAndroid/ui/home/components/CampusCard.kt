@@ -33,7 +33,7 @@ fun CampusCard(campus: Campus) {
                 modifier = Modifier.padding(start = sizeLarge)
             )
             Text(
-                campus.institution.toString(),
+                campus.name,
                 modifier = Modifier.padding(start = sizeLarge)
             )
             Spacer(modifier = Modifier.height(sizeSmall))

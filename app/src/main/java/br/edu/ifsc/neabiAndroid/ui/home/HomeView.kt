@@ -6,8 +6,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -22,6 +21,8 @@ fun HomeView(
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+
+    var searchText by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -50,8 +51,8 @@ fun HomeView(
             modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
             TextField(
-                value = "",
-                onValueChange = {},
+                value = searchText,
+                onValueChange = { searchText = it },
                 maxLines = 1,
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
