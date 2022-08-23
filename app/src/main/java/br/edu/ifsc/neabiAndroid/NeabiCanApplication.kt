@@ -8,4 +8,8 @@ class NeabiCanApplication: Application() {
     val neabicanDatabase: NeabicanDatabase by lazy{
         NeabicanDatabase.getInstance(this)
     }
+
+    val initialRepository:InitializationRepository by lazy {
+        InitializationRepository(neabicanDatabase)
+    }
 }

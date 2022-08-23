@@ -9,7 +9,7 @@ import br.edu.ifsc.neabiAndroid.data.local.entities.DBVersionEntity
 @Dao
 interface DBVersionDao {
 
-    @Query("SELECT * FROM db_version limit 1")
+    @Query("SELECT * FROM db_version")
     fun getDatabaseVersion(): DBVersionEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

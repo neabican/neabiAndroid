@@ -9,9 +9,9 @@ import br.edu.ifsc.neabiAndroid.data.local.entities.*
 
 
 @Database(
-    entities = [InstitutionEntity::class, AddressEntity::class, CourseEntity::class,
-               CampusEntity::class, CoursesEntity::class, ProgramEntity::class,
-               ProjectEntity::class, AffirmativeActionEntity::class],
+    entities = [DBVersionEntity::class, InstitutionEntity::class, AddressEntity::class,
+                CourseEntity::class, CampusEntity::class, CoursesEntity::class,
+                ProgramEntity::class, ProjectEntity::class, AffirmativeActionEntity::class],
     version = 1,
     exportSchema = false
 )
