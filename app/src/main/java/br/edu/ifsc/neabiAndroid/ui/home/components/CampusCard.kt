@@ -22,7 +22,7 @@ fun CampusCard(campus: Campus) {
             .padding(sizeMedium)
             .fillMaxWidth(),
         elevation = sizeSmall,
-        shape = RoundedCornerShape(5)
+        shape = RoundedCornerShape(sizeLarge)
     ) {
         Column {
             Spacer(modifier = Modifier.height(sizeSmall))

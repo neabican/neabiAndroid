@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.dp
 import br.edu.ifsc.neabiAndroid.ui.campus.components.BoxInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.ExpandableCard
 import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
+import br.edu.ifsc.neabiAndroid.util.sizeExtraLarge
+import br.edu.ifsc.neabiAndroid.util.sizeLarge
+import br.edu.ifsc.neabiAndroid.util.sizeMedium
 import coil.compose.SubcomposeAsyncImage
 
 
@@ -24,7 +27,7 @@ fun CampusView(
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(sizeExtraLarge)
     ) {
         SubcomposeAsyncImage(
             model = viewModel.getImage(),
@@ -50,9 +53,9 @@ fun CampusView(
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
-                .background(color = PrimaryColor, shape = RoundedCornerShape(10.dp)),
-            shape = RoundedCornerShape(10.dp),
+                .padding(start = sizeExtraLarge, end = sizeExtraLarge)
+                .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
+            shape = RoundedCornerShape(sizeMedium),
             onClick = { /*TODO*/ }
         ) {
             Text("Visitar site da instituição")
@@ -60,12 +63,12 @@ fun CampusView(
 
         Row(
             modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = sizeExtraLarge, end = sizeExtraLarge)
         ) {
             Box(
                 modifier = Modifier
                     .height(200.dp)
-                    .border(1.dp, PrimaryColor, RoundedCornerShape(16.dp))
+                    .border(1.dp, PrimaryColor, RoundedCornerShape(sizeLarge))
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
@@ -74,6 +77,6 @@ fun CampusView(
             }
         }
 
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(sizeExtraLarge))
     }
 }

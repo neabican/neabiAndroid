@@ -22,6 +22,9 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import br.edu.ifsc.neabiAndroid.util.sizeExtraLarge
+import br.edu.ifsc.neabiAndroid.util.sizeExtraSmall
+import br.edu.ifsc.neabiAndroid.util.sizeLarge
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -35,8 +38,8 @@ fun ExpandableCard(title: String, content: @Composable() () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
-            .border(1.dp,Color.Gray, RoundedCornerShape(16.dp))
+            .padding(start = sizeExtraLarge, end = sizeExtraLarge)
+            .border(1.dp,Color.Gray, RoundedCornerShape(sizeLarge))
             .animateContentSize(
                 animationSpec = tween(
                     durationMillis = 300,
@@ -46,11 +49,11 @@ fun ExpandableCard(title: String, content: @Composable() () -> Unit) {
         onClick = {
             expandedState = !expandedState
         },
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(sizeLarge)
     ) {
         Column(
             modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp, top = 2.dp, bottom = 2.dp)
+                .padding(start = sizeExtraLarge, end = sizeExtraLarge, top = sizeExtraSmall, bottom = sizeExtraSmall)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -73,7 +76,7 @@ fun ExpandableCard(title: String, content: @Composable() () -> Unit) {
             }
             if (expandedState) {
                 content()
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(sizeLarge))
             }
         }
     }
