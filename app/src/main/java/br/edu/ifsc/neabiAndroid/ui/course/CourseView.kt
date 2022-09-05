@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
+import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
 import br.edu.ifsc.neabiAndroid.util.sizeExtraLarge
 import br.edu.ifsc.neabiAndroid.util.sizeLarge
@@ -22,6 +23,7 @@ import br.edu.ifsc.neabiAndroid.util.sizeMedium
 
 @Composable
 fun CourseView(
+    navController: NavController,
     viewModel: CourseViewModel
 ) {
     Column(

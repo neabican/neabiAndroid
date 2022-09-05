@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.ui.campus.components.BoxInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.ExpandableCard
 import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
@@ -22,6 +23,7 @@ import coil.compose.SubcomposeAsyncImage
 
 @Composable
 fun CampusView(
+    navController: NavController,
     viewModel: CampusViewModel
 ) {
     Column(
@@ -36,6 +38,7 @@ fun CampusView(
             },
             contentDescription = "image",
         )
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement =  Arrangement.SpaceEvenly
@@ -47,18 +50,23 @@ fun CampusView(
         }
 
         ExpandableCard("Endereço") {
-            Text("Rua dos Bobos, 0")
+            Text("Avenida Expedicionários, 2150 - Campo da Água Verde, Canoinhas - SC, 89460-000")
         }
 
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = sizeExtraLarge, end = sizeExtraLarge)
-                .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
-            shape = RoundedCornerShape(sizeMedium),
-            onClick = { /*TODO*/ }
-        ) {
-            Text("Visitar site da instituição")
+        ExpandableCard("Cursos") {
+            Text("Manutenção e Suporte em Informática")
+        }
+
+        ExpandableCard("Programas") {
+            Text("Programa 1")
+        }
+
+        ExpandableCard("Projetos") {
+            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                Text("Projeto 1")
+                Text("Projeto 2")
+                Text("Projeto 3")
+            }
         }
 
         Row(
@@ -77,6 +85,17 @@ fun CampusView(
             }
         }
 
-        Spacer(modifier = Modifier.size(sizeExtraLarge))
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = sizeExtraLarge, end = sizeExtraLarge)
+                .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
+            shape = RoundedCornerShape(sizeMedium),
+            onClick = { /*TODO*/ }
+        ) {
+            Text("Visitar site da instituição")
+        }
+
+        Spacer(modifier = Modifier.size(sizeMedium))
     }
 }

@@ -1,29 +1,29 @@
 package br.edu.ifsc.neabiAndroid
 
-import android.annotation.SuppressLint
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import br.edu.ifsc.neabiAndroid.data.local.NeabicanDatabase
-import br.edu.ifsc.neabiAndroid.domain.model.Campus
-import br.edu.ifsc.neabiAndroid.domain.repository.InitializationRepository
-import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
-//import br.edu.ifsc.neabiAndroid.presentation.CampusViewModel
-//import br.edu.ifsc.neabiAndroid.presentation.CampusViewModelFactory
-//import br.edu.ifsc.neabiAndroid.presentation.showCampus
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import br.edu.ifsc.neabiAndroid.ui.campus.CampusView
+import br.edu.ifsc.neabiAndroid.ui.campus.CampusViewModel
+import br.edu.ifsc.neabiAndroid.ui.course.CourseView
+import br.edu.ifsc.neabiAndroid.ui.course.CourseViewModel
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
+import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
 import br.edu.ifsc.neabiAndroid.ui.loading.LoadVMFactory
 import br.edu.ifsc.neabiAndroid.ui.loading.LoadView
 import br.edu.ifsc.neabiAndroid.ui.loading.LoadViewModel
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -42,7 +42,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NeabicanApp(initVM)
+                    NeabicanApp(initVM) {
+                        val navController: NavHostController = rememberNavController()
+                        val startDestination = "home"
+
+                        NavHost(navController = navController, startDestination = startDestination) {
+                            composable("home") {
+                                HomeView(navController)
+                            }
+                            composable("course/{courseId}") { navBackStackEntry ->
+                                CourseView(navController, CourseViewModel(navBackStackEntry.arguments?.getInt("courseId") ?: 0))
+                            }
+                            composable("campus/{campusId}") { navBackStackEntry ->
+                                CampusView(navController, CampusViewModel(navBackStackEntry.arguments?.getInt("campusId") ?: 0))
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -50,7 +65,34 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NeabicanApp(loadViewModel: LoadViewModel) {
+fun NeabicanApp(loadViewModel: LoadViewModel, content: @Composable() () -> Unit) {
     LoadView(loadViewModel)
-    //HomeView()
+
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Sistema Educacional") },
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            scope.launch {
+                                scaffoldState.drawerState.apply {
+                                    if (isClosed) open() else close()
+                                }
+                            }
+                        }
+                    ) {
+                        Icon(Icons.Filled.Menu, contentDescription = "Menu")
+                    }
+                },
+            )
+        },
+        scaffoldState = scaffoldState,
+        drawerContent = {}
+    ) {
+        content()
+    }
 }

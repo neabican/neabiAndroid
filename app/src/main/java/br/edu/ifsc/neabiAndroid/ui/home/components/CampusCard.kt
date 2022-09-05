@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.util.sizeLarge
 import br.edu.ifsc.neabiAndroid.util.sizeMedium
@@ -16,7 +17,7 @@ import br.edu.ifsc.neabiAndroid.util.sizeSmall
 import coil.compose.SubcomposeAsyncImage
 
 @Composable
-fun CampusCard(campus: Campus) {
+fun CampusCard(navController: NavController, campus: Campus) {
     Card(
         modifier = Modifier
             .padding(sizeMedium)
@@ -48,7 +49,9 @@ fun CampusCard(campus: Campus) {
                     contentDescription = "image",
                 )
                 Button(
-                    onClick = {},
+                    onClick = {
+                        navController.navigate("campus/${campus.pk}")
+                    },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                     modifier = Modifier.fillMaxSize()
                 ) {
