@@ -3,6 +3,8 @@ package br.edu.ifsc.neabiAndroid.data.local.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import br.edu.ifsc.neabiAndroid.domain.model.Course
+import br.edu.ifsc.neabiAndroid.domain.model.Courses
 
 @Entity(
     tableName = "courses",
@@ -30,3 +32,14 @@ data class CoursesEntity(
     val coursePk: Int,
     val campusPk: Int
 )
+
+fun List<CoursesEntity>.toDomain(): List<Courses>{
+    return map{
+        Courses(
+            pk = it.pk,
+            link = it.link,
+            course = Course(it.coursePk, "teste", "----"),
+            campus = it.campusPk
+        )
+    }
+}

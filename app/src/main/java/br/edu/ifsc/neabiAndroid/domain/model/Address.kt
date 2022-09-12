@@ -11,17 +11,4 @@ data class Address(
     val zip_code: String,
     val latitude: String,
     val longitude: String
-){
-    fun toEntity(): AddressEntity {
-        return AddressEntity(
-            pk = pk,
-            city = city,
-            state = state,
-            public_place = public_place,
-            number = number,
-            zip_code = zip_code,
-            latitude = latitude,
-            longitude = longitude
-        )
-    }
-}
+)

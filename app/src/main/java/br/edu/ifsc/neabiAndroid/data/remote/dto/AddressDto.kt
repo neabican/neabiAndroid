@@ -1,5 +1,6 @@
 package br.edu.ifsc.neabiAndroid.data.remote.dto
 
+import br.edu.ifsc.neabiAndroid.data.local.entities.AddressEntity
 import br.edu.ifsc.neabiAndroid.domain.model.Address
 import com.squareup.moshi.Json
 
@@ -25,8 +26,8 @@ data class AddressDto(
 
     val longitude: String
 ){
-    fun toDomain(): Address{
-        return Address(
+    fun toEntity(): AddressEntity{
+        return AddressEntity(
             pk = pk,
             city = city,
             state = state,

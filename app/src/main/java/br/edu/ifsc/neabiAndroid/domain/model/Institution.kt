@@ -7,12 +7,4 @@ data class Institution(
     val name: String,
     val initials: String,
     val campus: List<Campus>
-){
-    fun toEntity(): InstitutionEntity {
-        return InstitutionEntity(
-            pk = pk,
-            name = name,
-            initials = initials
-        )
-    }
-}
+)

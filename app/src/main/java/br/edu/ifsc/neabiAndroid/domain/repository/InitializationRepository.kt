@@ -36,7 +36,7 @@ class InitializationRepository(private val db: NeabicanDatabase) {
                 var aux = NeabicanApi.retrofitService.getInitialData()
 
                 Log.d("debug", "-> Starting the data map!")
-                mapper.cast(aux.map { it.toDomain() })
+                mapper.cast(aux)
             }catch (e: Exception){
                 Log.e("api", "Ocorreu um erro ao acessar API: "+e.message)
                 return@withContext false

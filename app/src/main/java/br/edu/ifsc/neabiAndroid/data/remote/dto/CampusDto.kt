@@ -1,5 +1,6 @@
 package br.edu.ifsc.neabiAndroid.data.remote.dto
 
+import br.edu.ifsc.neabiAndroid.data.local.entities.CampusEntity
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import com.squareup.moshi.Json
 
@@ -9,7 +10,7 @@ data class CampusDto(
     @Json(name = "nome")
     val name: String,
 
-    @Json(name = "photo")
+    @Json(name = "foto")
     val image: String = "",
 
     @Json(name = "instituicao")
@@ -30,17 +31,13 @@ data class CampusDto(
     @Json(name = "acoes_afirmativas")
     val affirmativeActionDto: List<AffirmativeActionDto> = listOf(),
 ){
-    fun toDomain(): Campus {
-        return Campus(
+    fun toEntity(): CampusEntity {
+        return CampusEntity(
             pk = pk,
             name = name,
             image = image,
-            institution = institution,
-            address = addressDto.toDomain(),
-            courses = courses.map { it.toDomain(pk) },
-            program = programDto.map { it.toDomain() },
-            project = projectDto.map { it.toDomain() },
-            affirmativeAction = affirmativeActionDto.map{ it.toDomain() }
+            institutionPk = institution,
+            addressPk = addressDto.pk
         )
     }
 }

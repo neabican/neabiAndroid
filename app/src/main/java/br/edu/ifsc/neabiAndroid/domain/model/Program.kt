@@ -9,15 +9,3 @@ data class Program(
     val link: String,
     val campus: Int
 )
-
-fun List<Program>.asEntityModel(): List<ProgramEntity>{
-    return map {
-        ProgramEntity(
-            pk = it.pk,
-            name = it.name,
-            description = it.description,
-            link = it.link,
-            campusPk = it.campus
-        )
-    }
-}

@@ -1,5 +1,6 @@
 package br.edu.ifsc.neabiAndroid.ui.campus
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -8,9 +9,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
+import br.edu.ifsc.neabiAndroid.data.remote.NeabicanApi
+import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.ui.campus.components.BoxInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.ExpandableCard
 import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
@@ -24,13 +29,14 @@ import coil.compose.SubcomposeAsyncImage
 fun CampusView(
     viewModel: CampusViewModel
 ) {
+    val campus = viewModel.campus.observeAsState()
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(sizeExtraLarge)
     ) {
         SubcomposeAsyncImage(
-            model = viewModel.getImage(),
+            model = BASE_URL+campus.value?.image,
             loading = {
                 CircularProgressIndicator()
             },

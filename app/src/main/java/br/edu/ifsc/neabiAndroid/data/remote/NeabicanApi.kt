@@ -14,7 +14,11 @@ import retrofit2.http.GET
 //Link para recuperar imagens.
 //Ex: https://neabican.pythonanywhere.com/media/fotos_campus/campus-canoinhas.jpg
 
-private const val BASE_URL = "https://neabican.pythonanywhere.com"
+object BaseURL{
+    const val BASE_URL = "https://neabican.pythonanywhere.com"
+
+}
+const val BASE_URL = "https://neabican.pythonanywhere.com"
 
 //Objeto para evitar armazenar NULL no Json
 object NULL_TO_EMPTY_STRING_ADAPTER {

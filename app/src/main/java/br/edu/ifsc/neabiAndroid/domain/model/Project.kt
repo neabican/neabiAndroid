@@ -10,15 +10,3 @@ data class Project(
     val link: String,
     val campus: Int
 )
-
-fun List<Project>.asEntityModel(): List<ProjectEntity>{
-    return map{
-        ProjectEntity(
-            pk = it.pk,
-            name = it.name,
-            description = it.description,
-            link = it.link,
-            campusPk = it.campus
-        )
-    }
-}

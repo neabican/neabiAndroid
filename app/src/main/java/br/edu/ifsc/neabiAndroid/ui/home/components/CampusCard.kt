@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import br.edu.ifsc.neabiAndroid.data.remote.BaseURL.BASE_URL
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.util.sizeLarge
 import br.edu.ifsc.neabiAndroid.util.sizeMedium
@@ -33,7 +34,7 @@ fun CampusCard(campus: Campus) {
                 modifier = Modifier.padding(start = sizeLarge)
             )
             Text(
-                campus.name,
+                campus.institution.name,
                 modifier = Modifier.padding(start = sizeLarge)
             )
             Spacer(modifier = Modifier.height(sizeSmall))
@@ -41,7 +42,10 @@ fun CampusCard(campus: Campus) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 SubcomposeAsyncImage(
-                    model = "https://via.placeholder.com/1100x500",
+                    model = if(campus.image.isNotBlank())
+                                BASE_URL+campus.image
+                            else
+                                "https://via.placeholder.com/1100x500",
                     loading = {
                         CircularProgressIndicator()
                     },

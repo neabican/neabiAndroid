@@ -1,9 +1,8 @@
 package br.edu.ifsc.neabiAndroid.util
 
 import br.edu.ifsc.neabiAndroid.data.local.entities.*
-import br.edu.ifsc.neabiAndroid.domain.model.Campus
-import br.edu.ifsc.neabiAndroid.domain.model.Institution
-import br.edu.ifsc.neabiAndroid.domain.model.asEntityModel
+import br.edu.ifsc.neabiAndroid.data.remote.dto.InstitutionDto
+import br.edu.ifsc.neabiAndroid.data.remote.dto.toEntity
 
 class DBMapper() {
     var address: MutableList<AddressEntity> = mutableListOf()
@@ -14,23 +13,23 @@ class DBMapper() {
     var institution: MutableList<InstitutionEntity> = mutableListOf()
     var program: MutableList<ProgramEntity> = mutableListOf()
     var project: MutableList<ProjectEntity> = mutableListOf()
-    var mapDone= false
+    var mapDone = false
 
-    fun cast(data: List<Institution>){
+    fun cast(data: List<InstitutionDto>){
         institution.addAll(data.map { it.toEntity() })
-        for (items in data){
-            campus.addAll(items.campus.asEntityModel())
-            items.campus.map {
-                address.add(it.address.toEntity())
-                affirmativeAction.addAll(it.affirmativeAction.asEntityModel())
-                courses.addAll(it.courses.asEntityModel())
+        for (item in data){
+            campus.addAll(item.campus.map { it.toEntity() })
+            item.campus.map {
+                address.add(it.addressDto.toEntity())
+                affirmativeAction.addAll(it.affirmativeActionDto.toEntity())
+                courses.addAll(it.courses.toEntity(it.pk))
                 course.addAll(
                     it.courses.map { index ->
-                        index.course.toEntity()
+                        index.courseDto.toEntity()
                     }
                 )
-                program.addAll(it.program.asEntityModel())
-                project.addAll(it.project.asEntityModel())
+                program.addAll(it.programDto.toEntity())
+                project.addAll(it.projectDto.toEntity())
             }
             course.distinct()
             project.distinct()

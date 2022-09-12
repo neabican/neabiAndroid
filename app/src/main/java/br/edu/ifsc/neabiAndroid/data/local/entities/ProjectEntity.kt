@@ -5,6 +5,8 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.ForeignKey.RESTRICT
 import androidx.room.PrimaryKey
+import br.edu.ifsc.neabiAndroid.domain.model.Program
+import br.edu.ifsc.neabiAndroid.domain.model.Project
 
 @Entity(
     tableName = "project",
@@ -26,3 +28,15 @@ data class ProjectEntity(
     val link: String,
     val campusPk: Int
 )
+
+fun List<ProjectEntity>.toDomain(): List<Project>{
+    return map{
+        Project(
+            pk = it.pk,
+            name = it.name,
+            description = it.description,
+            link = it.link,
+            campus = it.campusPk
+        )
+    }
+}

@@ -8,14 +8,3 @@ data class Courses(
     val course: Course,
     val campus: Int
 )
-
-fun List<Courses>.asEntityModel(): List<CoursesEntity>{
-    return map {
-        CoursesEntity(
-            pk = it.pk,
-            link = it.link,
-            coursePk = it.course.pk,
-            campusPk = it.campus
-        )
-    }
-}
