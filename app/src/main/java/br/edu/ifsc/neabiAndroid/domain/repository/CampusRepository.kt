@@ -1,26 +1,19 @@
 package br.edu.ifsc.neabiAndroid.domain.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import br.edu.ifsc.neabiAndroid.data.local.daos.CampusDao
-import br.edu.ifsc.neabiAndroid.data.local.entities.AllCampusInfo
-import br.edu.ifsc.neabiAndroid.data.local.entities.CampusEntity
 import br.edu.ifsc.neabiAndroid.data.local.entities.toDomain
-import br.edu.ifsc.neabiAndroid.data.local.entities.toDomainCampus
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class CampusRepository(private val dao: CampusDao) {
 
-    val campus: LiveData<Campus> = MutableLiveData()
-
-    fun getCampus(campusPk:Int): LiveData<Campus> {
-        return MutableLiveData()
-    }
-
-
-        /**
-            ){
+    suspend fun getCampus(campusPk:Int): LiveData<Campus> {
+        var campus: LiveData<Campus>
+        withContext(Dispatchers.Default){
+            campus = Transformations.map(dao.getCampus(campusPk)){
                 Campus(
                     pk = it.campus.pk,
                     name = it.campus.name,
@@ -33,5 +26,7 @@ class CampusRepository(private val dao: CampusDao) {
                     affirmativeAction = it.affirmativeAction.toDomain()
                 )
             }
-         **/
+        }
+        return campus
+    }
 }

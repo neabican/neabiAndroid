@@ -22,10 +22,6 @@ class HomeRepository(private val dao: CampusDao) {
                         image = it.campusEntity.image,
                         institution = it.institution.toDomain(),
                         address = it.address.toDomain(),
-                        courses = listOf(),
-                        affirmativeAction = listOf(),
-                        project = listOf(),
-                        program = listOf()
                     )
                 }
             }

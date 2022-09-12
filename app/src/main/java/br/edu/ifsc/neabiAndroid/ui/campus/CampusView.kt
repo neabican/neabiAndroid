@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
 import br.edu.ifsc.neabiAndroid.data.remote.NeabicanApi
@@ -24,14 +25,15 @@ import br.edu.ifsc.neabiAndroid.util.sizeExtraLarge
 import br.edu.ifsc.neabiAndroid.util.sizeLarge
 import br.edu.ifsc.neabiAndroid.util.sizeMedium
 import coil.compose.SubcomposeAsyncImage
+import java.net.URI
 
 
 @Composable
 fun CampusView(
     navController: NavController,
-    viewModel: CampusViewModel
+    campusViewModel: CampusViewModel
 ) {
-    val campus = viewModel.campus.observeAsState()
+    var campus = campusViewModel.campus.observeAsState()
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,29 +51,40 @@ fun CampusView(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement =  Arrangement.SpaceEvenly
         ) {
-            BoxInfo("Cursos", 1)
-            BoxInfo("Programas", 2)
-            BoxInfo("Projetos", 0)
-            BoxInfo("Ações Afirmativas", 1)
+            BoxInfo("Cursos", campus.value?.courses?.size ?: 0)
+            BoxInfo("Programas", campus.value?.program?.size ?: 0)
+            BoxInfo("Projetos", campus.value?.project?.size ?: 0)
+            BoxInfo("Ações Afirmativas", campus.value?.affirmativeAction?.size ?: 0)
         }
 
+
         ExpandableCard("Endereço") {
-            Text("Avenida Expedicionários, 2150 - Campo da Água Verde, Canoinhas - SC, 89460-000")
+            Text("${campus.value?.address?.public_place}, " +
+                    "${campus.value?.address?.number} - " +
+                    "${campus.value?.address?.city} - " +
+                    "${campus.value?.address?.state}, " +
+                    "${campus.value?.address?.zip_code}")
+            //Text("Avenida Expedicionários, 2150 - Campo da Água Verde, Canoinhas - SC, 89460-000")
         }
 
         ExpandableCard("Cursos") {
-            Text("Manutenção e Suporte em Informática")
+            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                for (course in campus.value?.courses ?: listOf())
+                    Text(course.course.name)
+            }
         }
 
         ExpandableCard("Programas") {
-            Text("Programa 1")
+            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                for(program in campus.value?.program ?: listOf())
+                    Text(program.name)
+            }
         }
 
         ExpandableCard("Projetos") {
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
-                Text("Projeto 1")
-                Text("Projeto 2")
-                Text("Projeto 3")
+                for(proj in campus.value?.project ?: listOf())
+                    Text(proj.name)
             }
         }
 
@@ -91,13 +104,16 @@ fun CampusView(
             }
         }
 
+        val uriHandler = LocalUriHandler.current
         Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = sizeExtraLarge, end = sizeExtraLarge)
                 .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
             shape = RoundedCornerShape(sizeMedium),
-            onClick = { /*TODO*/ }
+            onClick = {
+                uriHandler.openUri("") //TODO(Adicionar link do campus)
+            }
         ) {
             Text("Visitar site da instituição")
         }

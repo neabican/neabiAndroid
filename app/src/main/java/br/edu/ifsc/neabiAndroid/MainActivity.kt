@@ -1,6 +1,7 @@
 package br.edu.ifsc.neabiAndroid
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -12,9 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import br.edu.ifsc.neabiAndroid.domain.model.Course
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusVMFactory
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusView
@@ -72,7 +75,15 @@ class MainActivity : ComponentActivity() {
                             composable("course/{courseId}") { navBackStackEntry ->
                                 CourseView(navController, CourseViewModel(Course(1, ".",".")))
                             }
-                            composable("campus/{campusId}") { navBackStackEntry ->
+                            composable(
+                                route = "campus/{campusId}",
+                                arguments = listOf(
+                                    navArgument("campusId"){
+                                        defaultValue = -1
+                                        type = NavType.IntType
+                                    })
+                            ){
+                                campusViewModel.setCampus(it.arguments?.getInt("campusId")?:-1)
                                 CampusView(navController, campusViewModel)
                             }
                         }

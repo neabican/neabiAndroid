@@ -1,21 +1,25 @@
 package br.edu.ifsc.neabiAndroid.ui.campus
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import br.edu.ifsc.neabiAndroid.data.local.entities.AllCampusInfo
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.domain.repository.CampusRepository
 import br.edu.ifsc.neabiAndroid.domain.repository.HomeRepository
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
+import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class CampusViewModel(private val rep: CampusRepository): ViewModel() {
 
-    private val _campus = rep.getCampus(1)
-
+    private var _campus: LiveData<Campus> = MutableLiveData()
     val campus: LiveData<Campus>
         get() = _campus
+
+    fun setCampus(int: Int){
+        viewModelScope.launch {
+             _campus = rep.getCampus(int)
+        }
+    }
 }
 
 

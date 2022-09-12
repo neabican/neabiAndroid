@@ -6,8 +6,8 @@ data class Campus(
     val image: String,
     val institution: Institution,
     val address: Address,
-    val courses: List<Courses>,
-    val program: List<Program>,
-    val project: List<Project>,
-    val affirmativeAction: List<AffirmativeAction>,
+    val courses: List<Courses> = listOf(),
+    val program: List<Program> = listOf(),
+    val project: List<Project> = listOf(),
+    val affirmativeAction: List<AffirmativeAction> = listOf(),
 )
