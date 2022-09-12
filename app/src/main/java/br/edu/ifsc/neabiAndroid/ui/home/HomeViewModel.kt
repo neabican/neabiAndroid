@@ -15,9 +15,11 @@ import java.lang.IllegalArgumentException
 
 class HomeViewModel(private val rep: HomeRepository): ViewModel() {
 
+    var updated: MutableLiveData<Boolean> = MutableLiveData(false)
     init {
         viewModelScope.launch {
             _campus = rep.getCampus()
+            updated.value = true
         }
     }
 

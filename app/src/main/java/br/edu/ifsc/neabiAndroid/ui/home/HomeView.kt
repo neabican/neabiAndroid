@@ -9,8 +9,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import br.edu.ifsc.neabiAndroid.domain.model.Address
-import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
@@ -26,7 +24,7 @@ fun HomeView(
     val scope = rememberCoroutineScope()
     var searchText by remember { mutableStateOf("") }
     var allCampus = viewModel.campus.observeAsState()
-
+    var teste = viewModel.updated.observeAsState()
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
@@ -42,6 +40,10 @@ fun HomeView(
             )
         )
         Spacer(modifier = Modifier.size(16.dp))
+
+        if(teste.value != true)
+            CircularProgressIndicator()
+
         for (item in allCampus.value?: listOf()) {
             CampusCard(navController = navController, campus = item)
         }
