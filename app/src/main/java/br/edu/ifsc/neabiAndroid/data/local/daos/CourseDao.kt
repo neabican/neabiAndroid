@@ -14,6 +14,9 @@ interface CourseDao {
     @Query("SELECT * FROM course")
     fun getAllCourse(): LiveData<List<CourseEntity>>
 
+    @Query("DELETE FROM course")
+    suspend fun clearTable()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllCourse(courses: List<CourseEntity>)
+    suspend fun insertAllCourse(courses: List<CourseEntity>)
 }

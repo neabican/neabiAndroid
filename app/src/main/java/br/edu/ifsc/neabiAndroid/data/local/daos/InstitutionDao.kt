@@ -13,6 +13,9 @@ interface InstitutionDao {
     @Query("SELECT * FROM institution")
     fun getAllInstitution(): LiveData<List<InstitutionEntity>>
 
+    @Query("DELETE FROM institution")
+    suspend fun clearTable()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllInstitutions(institutions: List<InstitutionEntity>)
+    suspend fun insertAllInstitutions(institutions: List<InstitutionEntity>)
 }

@@ -1,14 +1,8 @@
 package br.edu.ifsc.neabiAndroid.ui.home
 
 import androidx.lifecycle.*
-import br.edu.ifsc.neabiAndroid.data.local.entities.HomeEntity
-import br.edu.ifsc.neabiAndroid.data.local.entities.toDomain
-import br.edu.ifsc.neabiAndroid.domain.model.Address
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
-import br.edu.ifsc.neabiAndroid.domain.model.Institution
 import br.edu.ifsc.neabiAndroid.domain.repository.HomeRepository
-import br.edu.ifsc.neabiAndroid.domain.repository.InitializationRepository
-import br.edu.ifsc.neabiAndroid.ui.loading.LoadViewModel
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 

@@ -13,6 +13,9 @@ interface ProgramDao {
     @Query("SELECT * FROM program")
     fun getAllProgram(): LiveData<List<ProgramEntity>>
 
+    @Query("DELETE FROM program")
+    suspend fun clearTable()
+
     @Insert(onConflict = REPLACE)
-    fun insertAllProgram(programs: List<ProgramEntity>)
+    suspend fun insertAllProgram(programs: List<ProgramEntity>)
 }

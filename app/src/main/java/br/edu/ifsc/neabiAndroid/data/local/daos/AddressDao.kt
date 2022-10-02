@@ -13,6 +13,9 @@ interface AddressDao {
     @Query("SELECT * FROM address")
     fun getAllAddress(): LiveData<List<AddressEntity>>
 
+    @Query("DELETE FROM address")
+    suspend fun clearTable()
+
     @Insert(onConflict = REPLACE)
-    fun insertAllAddress(address: List<AddressEntity>)
+    suspend fun insertAllAddress(address: List<AddressEntity>)
 }

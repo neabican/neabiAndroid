@@ -25,7 +25,7 @@ abstract class NeabicanDatabase: RoomDatabase() {
     abstract fun coursesDao(): CoursesDao
     abstract fun programDao(): ProgramDao
     abstract fun project(): ProjectDao
-    abstract fun affirmaticeActionDao(): AffirmativeActionDao
+    abstract fun affirmativeActionDao(): AffirmativeActionDao
 
     companion object{
 

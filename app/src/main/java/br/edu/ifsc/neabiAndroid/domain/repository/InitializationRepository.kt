@@ -2,7 +2,6 @@ package br.edu.ifsc.neabiAndroid.domain.repository
 
 import android.util.Log
 import br.edu.ifsc.neabiAndroid.data.local.NeabicanDatabase
-import br.edu.ifsc.neabiAndroid.data.local.entities.asDomain
 import br.edu.ifsc.neabiAndroid.data.remote.NeabicanApi
 import br.edu.ifsc.neabiAndroid.data.remote.dto.toDomain
 import br.edu.ifsc.neabiAndroid.domain.model.DBVersion
@@ -12,13 +11,23 @@ import kotlinx.coroutines.withContext
 
 class InitializationRepository(private val db: NeabicanDatabase) {
 
-    suspend fun getApiVersion(): DBVersion{
+    suspend fun getLocalVersion(): Int{
+        var version = -2
+        try{
+            version = db.DBVersionDao().getDatabaseVersion().version
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+        return version
+    }
+
+    suspend fun getApiVersion(): Int{
         Log.d("debug", "Collecting the DB version from API!")
 
-        var version = DBVersion(6,6)
+        var version = -1
         withContext(Dispatchers.IO){
             try {
-                version = NeabicanApi.retrofitService.getDatabaseVersion().toDomain()
+                version = NeabicanApi.retrofitService.getDatabaseVersion().toDomain().version
             }catch (e: Exception){
                 Log.e("api", "Ocorreu um erro aco acessar API: "+e.message)
             }
@@ -26,10 +35,35 @@ class InitializationRepository(private val db: NeabicanDatabase) {
         return version
     }
 
+    suspend fun clearDataBase(){
+        try {
+            db.addressDao().clearTable()
+            Log.d("debug", "-> Clear Table Address!")
+            db.affirmativeActionDao().clearTable()
+            Log.d("debug", "-> Clear Table AddirmativeAction!")
+            db.campusDao().clearTable()
+            Log.d("debug", "-> Clear Table Campus!")
+            db.courseDao().clearTable()
+            Log.d("debug", "-> Clear Table Course!")
+            db.coursesDao().clearTable()
+            Log.d("debug", "-> Clear Table Courses!")
+            db.institutionDao().clearTable()
+            Log.d("debug", "-> Clear Table Institution!")
+            db.programDao().clearTable()
+            Log.d("debug", "-> Clear Table Program!")
+            db.project().clearTable()
+            Log.d("debug", "-> Clear Table Project!")
+            Log.d("debug", "-> DataBase Empty!!")
+        }catch (e: Exception){
+            Log.e("clear table", "Erro ao limpar banco: $e")
+        }
+    }
+
     suspend fun refreshDatabase(): Boolean{
         Log.d("debug", "Refreshing DataBase")
 
         withContext(Dispatchers.IO){
+            clearDataBase()
             var mapper = DBMapper()
             try{
                 Log.d("debug", "-> Getting data from the API")
@@ -54,7 +88,7 @@ class InitializationRepository(private val db: NeabicanDatabase) {
                 Log.d("debug", "-> Campus insertion done!")
                 db.programDao().insertAllProgram(mapper.program)
                 Log.d("debug", "-> Program insertion done!")
-                db.affirmaticeActionDao().insertAllAffitmativeActions(mapper.affirmativeAction)
+                db.affirmativeActionDao().insertAllAffitmativeActions(mapper.affirmativeAction)
                 Log.d("debug", "-> Affirmative Action insertion done!")
                 db.coursesDao().insertAllCourses(mapper.courses)
                 Log.d("debug", "-> Institution insertion done!")

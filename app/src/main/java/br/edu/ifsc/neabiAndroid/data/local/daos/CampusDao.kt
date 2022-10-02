@@ -13,7 +13,10 @@ import br.edu.ifsc.neabiAndroid.data.local.entities.HomeEntity
 interface CampusDao {
 
     @Query("SELECT * FROM campus")
-    fun getAllCampus(): List<CampusEntity>
+    suspend fun getAllCampus(): List<CampusEntity>
+
+    @Query("DELETE FROM campus")
+    suspend fun clearTable()
 
     @Query("SELECT * FROM campus")
     fun getHomeInfo(): LiveData<List<HomeEntity>>
@@ -22,5 +25,5 @@ interface CampusDao {
     fun getCampus(campusPk: Int): LiveData<AllCampusInfo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllCampus(campus: List<CampusEntity>)
+    suspend fun insertAllCampus(campus: List<CampusEntity>)
 }

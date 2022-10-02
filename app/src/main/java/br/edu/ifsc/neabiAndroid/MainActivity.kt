@@ -1,7 +1,6 @@
 package br.edu.ifsc.neabiAndroid
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -10,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -27,18 +27,19 @@ import br.edu.ifsc.neabiAndroid.ui.course.CourseViewModel
 import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
+import br.edu.ifsc.neabiAndroid.ui.splash.SplashScreen
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
-import br.edu.ifsc.neabiAndroid.ui.loading.LoadVMFactory
-import br.edu.ifsc.neabiAndroid.ui.loading.LoadView
-import br.edu.ifsc.neabiAndroid.ui.loading.LoadViewModel
+import br.edu.ifsc.neabiAndroid.ui.splash.SplashVMFactory
+import br.edu.ifsc.neabiAndroid.ui.splash.SplashViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val initVM by viewModels<LoadViewModel>(){
-            LoadVMFactory(
+        val splashViewModel by viewModels<SplashViewModel>(){
+            SplashVMFactory(
                 (this.applicationContext as NeabiCanApplication).initialRepository
             )
         }
@@ -54,14 +55,13 @@ class MainActivity : ComponentActivity() {
                 (this.applicationContext as NeabiCanApplication).campusRepository
             )
         }
-
         setContent {
             NeabiAndroidTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NeabicanApp(initVM) {
+                    NeabicanApp(splashViewModel) {
                         val navController: NavHostController = rememberNavController()
                         val startDestination = "home"
 
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                                     navController
                                 )
                             }
-                            composable("course/{courseId}") { navBackStackEntry ->
+                            composable("course/{courseId}") {
                                 CourseView(navController, CourseViewModel(Course(1, ".",".")))
                             }
                             composable(
@@ -95,34 +95,37 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NeabicanApp(loadViewModel: LoadViewModel, content: @Composable() () -> Unit) {
-    LoadView(loadViewModel)
-
+fun NeabicanApp(viewModel: SplashViewModel,content: @Composable() () -> Unit) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val loaded = viewModel.isLoading.collectAsState()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Sistema Educacional") },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            scope.launch {
-                                scaffoldState.drawerState.apply {
-                                    if (isClosed) open() else close()
+    if(loaded.value){
+        SplashScreen(viewModel = viewModel)
+    }else {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Sistema Educacional") },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = {
+                                scope.launch {
+                                    scaffoldState.drawerState.apply {
+                                        if (isClosed) open() else close()
+                                    }
                                 }
                             }
+                        ) {
+                            Icon(Icons.Filled.Menu, contentDescription = "Menu")
                         }
-                    ) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Menu")
-                    }
-                },
-            )
-        },
-        scaffoldState = scaffoldState,
-        drawerContent = {}
-    ) {
-        content()
+                    },
+                )
+            },
+            scaffoldState = scaffoldState,
+            drawerContent = {}
+        ) {
+            content()
+        }
     }
 }

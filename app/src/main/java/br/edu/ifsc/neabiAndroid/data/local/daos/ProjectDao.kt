@@ -13,6 +13,9 @@ interface ProjectDao {
     @Query("SELECT * FROM project")
     fun getAllProjects(): LiveData<List<ProjectEntity>>
 
+    @Query("DELETE FROM project")
+    suspend fun clearTable()
+
     @Insert(onConflict = REPLACE)
-    fun insertAllProjects(projects: List<ProjectEntity>)
+    suspend fun insertAllProjects(projects: List<ProjectEntity>)
 }

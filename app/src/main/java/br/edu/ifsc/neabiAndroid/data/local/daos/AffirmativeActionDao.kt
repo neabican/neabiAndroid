@@ -13,6 +13,9 @@ interface AffirmativeActionDao {
     @Query("SELECT * FROM affirmativeAction")
     fun getAllAffirmativeActions(): LiveData<List<AffirmativeActionEntity>>
 
+    @Query("DELETE FROM affirmativeAction")
+    suspend fun clearTable()
+
     @Insert(onConflict = REPLACE)
-    fun insertAllAffitmativeActions(actions: List<AffirmativeActionEntity>)
+    suspend fun insertAllAffitmativeActions(actions: List<AffirmativeActionEntity>)
 }
