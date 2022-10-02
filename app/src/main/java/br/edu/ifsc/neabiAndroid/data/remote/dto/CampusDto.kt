@@ -13,6 +13,8 @@ data class CampusDto(
     @Json(name = "foto")
     val image: String = "",
 
+    val link: String = "",
+
     @Json(name = "instituicao")
     val institution: Int,
 
@@ -36,6 +38,7 @@ data class CampusDto(
             pk = pk,
             name = name,
             image = image,
+            link = link,
             institutionPk = institution,
             addressPk = addressDto.pk
         )

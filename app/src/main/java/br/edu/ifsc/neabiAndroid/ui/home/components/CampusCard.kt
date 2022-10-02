@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.edu.ifsc.neabiAndroid.data.remote.BaseURL.BASE_URL
 import androidx.navigation.NavController
@@ -49,7 +50,7 @@ fun CampusCard(navController: NavController, campus: Campus) {
                             else
                                 "https://via.placeholder.com/1100x500",
                     loading = {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(modifier = Modifier.padding(70.dp))
                     },
                     contentDescription = "image",
                 )

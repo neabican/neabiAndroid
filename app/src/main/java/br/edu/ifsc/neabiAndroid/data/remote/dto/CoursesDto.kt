@@ -7,6 +7,8 @@ import com.squareup.moshi.Json
 data class CoursesDto(
     val pk: Int,
     val link: String,
+    @Json(name = "descricao")
+    val addition_info: String,
     @Json(name = "curso")
     val courseDto: CourseDto
 )
@@ -16,6 +18,7 @@ fun List<CoursesDto>.toEntity(campusPk: Int): List<CoursesEntity>{
         CoursesEntity(
             pk = it.pk,
             link = it.link,
+            addition_info = it.addition_info,
             coursePk = it.courseDto.pk,
             campusPk = campusPk
         )

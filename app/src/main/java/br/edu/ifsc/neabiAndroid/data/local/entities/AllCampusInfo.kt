@@ -43,6 +43,7 @@ fun AllCampusInfo.toDomainCampus(): Campus{
         pk = campus.pk,
         name = campus.name,
         image = campus.image,
+        link = campus.link,
         institution = institution.toDomain(),
         address = address.toDomain(),
         courses = courses.toDomain(),

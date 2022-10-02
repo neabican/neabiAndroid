@@ -4,6 +4,7 @@ data class Campus(
     val pk: Int,
     val name: String,
     val image: String,
+    val link: String,
     val institution: Institution,
     val address: Address,
     val courses: List<Courses> = listOf(),

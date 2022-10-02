@@ -28,6 +28,7 @@ data class CampusEntity(
     val pk: Int,
     val name: String,
     val image: String,
+    val link: String,
     val institutionPk: Int,
     val addressPk: Int,
 )

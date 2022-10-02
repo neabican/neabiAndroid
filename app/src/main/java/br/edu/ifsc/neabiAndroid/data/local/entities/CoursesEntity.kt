@@ -29,6 +29,7 @@ data class CoursesEntity(
     @PrimaryKey
     val pk: Int,
     val link: String,
+    val addition_info: String,
     val coursePk: Int,
     val campusPk: Int
 )
@@ -38,6 +39,7 @@ fun List<CoursesEntity>.toDomain(): List<Courses>{
         Courses(
             pk = it.pk,
             link = it.link,
+            addition_info = it.addition_info,
             course = Course(it.coursePk, "teste", "----"),
             campus = it.campusPk
         )
