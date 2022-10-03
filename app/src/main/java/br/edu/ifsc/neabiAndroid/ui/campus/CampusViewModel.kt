@@ -1,11 +1,9 @@
 package br.edu.ifsc.neabiAndroid.ui.campus
 
+import android.util.Log
 import androidx.lifecycle.*
-import br.edu.ifsc.neabiAndroid.data.local.entities.AllCampusInfo
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.domain.repository.CampusRepository
-import br.edu.ifsc.neabiAndroid.domain.repository.HomeRepository
-import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 

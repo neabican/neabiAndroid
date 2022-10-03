@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 import br.edu.ifsc.neabiAndroid.ui.home.components.CampusCard
+import br.edu.ifsc.neabiAndroid.util.Resource
 
 
 @Composable
@@ -23,8 +24,7 @@ fun HomeView(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     var searchText by remember { mutableStateOf("") }
-    var allCampus = viewModel.campus.observeAsState()
-    var teste = viewModel.updated.observeAsState()
+    var allCampus = viewModel.campus.collectAsState(initial = Resource.Loading(true))
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
@@ -41,11 +41,18 @@ fun HomeView(
         )
         Spacer(modifier = Modifier.size(16.dp))
 
-        if(teste.value != true)
-            CircularProgressIndicator()
-
-        for (item in allCampus.value?: listOf()) {
-            CampusCard(navController = navController, campus = item)
+        when(allCampus.value){
+            is Resource.Error -> Text(
+                text = "Erro ao buscar os campus!",
+                color = Color.Red,
+                fontSize = 24.sp
+            )
+            is Resource.Loading -> CircularProgressIndicator()
+            is Resource.Success -> {
+                allCampus.value.data?.forEach{
+                    CampusCard(navController = navController, campus = it)
+                }
+            }
         }
 
         Spacer(modifier = Modifier.size(16.dp))

@@ -19,7 +19,7 @@ interface CampusDao {
     suspend fun clearTable()
 
     @Query("SELECT * FROM campus")
-    fun getHomeInfo(): LiveData<List<HomeEntity>>
+    suspend fun getHomeInfo(): List<HomeEntity>
 
     @Query("SELECT * FROM campus WHERE pk=:campusPk")
     fun getCampus(campusPk: Int): LiveData<AllCampusInfo>

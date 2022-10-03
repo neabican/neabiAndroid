@@ -14,11 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
 import br.edu.ifsc.neabiAndroid.data.remote.NeabicanApi
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import androidx.navigation.NavController
+import br.edu.ifsc.neabiAndroid.domain.model.Address
+import br.edu.ifsc.neabiAndroid.ui.campus.components.AddressInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.BoxInfo
+import br.edu.ifsc.neabiAndroid.ui.campus.components.CardItem
 import br.edu.ifsc.neabiAndroid.ui.campus.components.ExpandableCard
 import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
 import br.edu.ifsc.neabiAndroid.util.sizeExtraLarge
@@ -59,32 +63,41 @@ fun CampusView(
 
 
         ExpandableCard("Endereço") {
-            Text("${campus.value?.address?.public_place}, " +
-                    "${campus.value?.address?.number} - " +
-                    "${campus.value?.address?.city} - " +
-                    "${campus.value?.address?.state}, " +
-                    "${campus.value?.address?.zip_code}")
-            //Text("Avenida Expedicionários, 2150 - Campo da Água Verde, Canoinhas - SC, 89460-000")
+            AddressInfo(campus.value?.address)
         }
 
         ExpandableCard("Cursos") {
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
                 for (course in campus.value?.courses ?: listOf())
-                    Text(course.course.name)
+                    CardItem(name = course.course.name){
+                        navController.navigate("course/${course.course.pk}")
+                    }
             }
         }
 
         ExpandableCard("Programas") {
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
                 for(program in campus.value?.program ?: listOf())
-                    Text(program.name)
+                    CardItem(name = program.name){
+                        navController.navigate("home")
+                    }
             }
         }
 
         ExpandableCard("Projetos") {
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
                 for(proj in campus.value?.project ?: listOf())
-                    Text(proj.name)
+                    CardItem(name = proj.name){
+                        navController.navigate("home")
+                    }
+            }
+        }
+        ExpandableCard("Ações Afirmativas") {
+            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                for(action in campus.value?.affirmativeAction ?: listOf())
+                    CardItem(name = action.name){
+                        navController.navigate("home")
+                    }
             }
         }
 
@@ -112,7 +125,7 @@ fun CampusView(
                 .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
             shape = RoundedCornerShape(sizeMedium),
             onClick = {
-                uriHandler.openUri("") //TODO(Adicionar link do campus)
+                uriHandler.openUri(campus.value?.link ?: "www.google.com")
             }
         ) {
             Text("Visitar site da instituição")

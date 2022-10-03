@@ -72,8 +72,15 @@ class MainActivity : ComponentActivity() {
                                     navController
                                 )
                             }
-                            composable("course/{courseId}") {
-                                CourseView(navController, CourseViewModel(Course(1, ".",".")))
+                            composable(
+                                route = "course/{courseId}",
+                            arguments = listOf(
+                                navArgument("courseId"){
+                                    defaultValue = -1
+                                    type = NavType.IntType
+                                })
+                            ) {
+                                CourseView(navController, CourseViewModel(Course(it.arguments?.getInt("campusId")?:-1,"teste","teste")))
                             }
                             composable(
                                 route = "campus/{campusId}",

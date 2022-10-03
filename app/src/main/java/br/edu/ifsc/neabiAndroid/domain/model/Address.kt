@@ -1,7 +1,5 @@
 package br.edu.ifsc.neabiAndroid.domain.model
 
-import br.edu.ifsc.neabiAndroid.data.local.entities.AddressEntity
-
 data class Address(
     val pk: Int,
     val city: String,
