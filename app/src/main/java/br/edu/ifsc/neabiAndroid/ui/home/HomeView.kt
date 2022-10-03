@@ -42,33 +42,13 @@ fun HomeView(
         Spacer(modifier = Modifier.size(16.dp))
 
         when(allCampus.value){
-            is Resource.Error -> Text(
-                text = "Erro ao buscar os campus!",
-                color = Color.Red,
-                fontSize = 24.sp
-            )
+            is Resource.Error -> {}
             is Resource.Loading -> CircularProgressIndicator()
             is Resource.Success -> {
                 allCampus.value.data?.forEach{
                     CampusCard(navController = navController, campus = it)
                 }
             }
-        }
-
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Button(
-            onClick = {
-                navController.navigate("course/1")
-            },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Text(
-                "Clique para acessar um curso de teste",
-                fontSize = 15.sp
-            )
-            Spacer(modifier = Modifier.size(16.dp))
         }
     }
 }

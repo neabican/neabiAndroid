@@ -34,14 +34,3 @@ data class CoursesEntity(
     val campusPk: Int
 )
 
-fun List<CoursesEntity>.toDomain(): List<Courses>{
-    return map{
-        Courses(
-            pk = it.pk,
-            link = it.link,
-            addition_info = it.addition_info,
-            course = Course(it.coursePk, "teste", "----"),
-            campus = it.campusPk
-        )
-    }
-}

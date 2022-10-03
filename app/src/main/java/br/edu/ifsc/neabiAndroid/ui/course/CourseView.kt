@@ -9,7 +9,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -23,19 +25,24 @@ import br.edu.ifsc.neabiAndroid.util.sizeMedium
 
 @Composable
 fun CourseView(
-    navController: NavController,
-    viewModel: CourseViewModel
+    viewModel: CoursesViewModel
 ) {
+    val course = viewModel.courses.observeAsState()
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
-            .padding(start = sizeLarge, end = sizeLarge, top = sizeExtraLarge, bottom = sizeExtraLarge),
+            .padding(
+                start = sizeLarge,
+                end = sizeLarge,
+                top = sizeExtraLarge,
+                bottom = sizeExtraLarge
+            ),
         verticalArrangement = Arrangement.spacedBy(sizeExtraLarge),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = viewModel.name,
+            text = course.value?.course?.name?:"",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
@@ -44,16 +51,17 @@ fun CourseView(
         AndroidView(
             modifier = Modifier.fillMaxWidth(),
             factory = { context -> TextView(context) },
-            update = { it.text = HtmlCompat.fromHtml(viewModel.description, HtmlCompat.FROM_HTML_MODE_COMPACT) }
+            update = { it.text = HtmlCompat.fromHtml(course.value?.course?.description?:"", HtmlCompat.FROM_HTML_MODE_COMPACT) }
         )
 
+        val uriHandler = LocalUriHandler.current
         Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = sizeLarge, end = sizeLarge)
                 .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
             shape = RoundedCornerShape(sizeMedium),
-            onClick = { /*TODO*/ }
+            onClick = { uriHandler.openUri(course.value?.link?:"") }
         ) {
             Text("Visitar site do curso")
         }

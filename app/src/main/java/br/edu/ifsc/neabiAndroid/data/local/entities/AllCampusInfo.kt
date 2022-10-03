@@ -17,10 +17,11 @@ data class AllCampusInfo(
     )
     val address: AddressEntity,
     @Relation(
+        entity = CoursesEntity::class,
         parentColumn = "pk",
         entityColumn = "campusPk"
     )
-    val courses: List<CoursesEntity>,
+    val courses: List<CourseUnion>,
     @Relation(
         parentColumn = "pk",
         entityColumn = "campusPk"

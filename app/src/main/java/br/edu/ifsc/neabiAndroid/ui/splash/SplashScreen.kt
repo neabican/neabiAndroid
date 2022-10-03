@@ -67,7 +67,7 @@ fun SplashScreen(
             horizontalArrangement = Arrangement.Center
         ) {
             if(loading.value){
-                CircularProgressIndicator(color = Color.Green)
+                CircularProgressIndicator(color = Color(0xff3DB41C))
             }
         }
     }

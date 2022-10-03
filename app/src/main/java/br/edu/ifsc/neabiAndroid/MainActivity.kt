@@ -18,12 +18,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import br.edu.ifsc.neabiAndroid.domain.model.Course
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusVMFactory
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusView
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusViewModel
 import br.edu.ifsc.neabiAndroid.ui.course.CourseView
-import br.edu.ifsc.neabiAndroid.ui.course.CourseViewModel
+import br.edu.ifsc.neabiAndroid.ui.course.CoursesVMFactory
+import br.edu.ifsc.neabiAndroid.ui.course.CoursesViewModel
 import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
@@ -31,7 +31,6 @@ import br.edu.ifsc.neabiAndroid.ui.splash.SplashScreen
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashVMFactory
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -55,6 +54,13 @@ class MainActivity : ComponentActivity() {
                 (this.applicationContext as NeabiCanApplication).campusRepository
             )
         }
+
+        val coursesViewModel by viewModels<CoursesViewModel>(){
+            CoursesVMFactory(
+                (this.applicationContext as NeabiCanApplication).coursesRepository
+            )
+        }
+
         setContent {
             NeabiAndroidTheme {
                 Surface(
@@ -80,7 +86,8 @@ class MainActivity : ComponentActivity() {
                                     type = NavType.IntType
                                 })
                             ) {
-                                CourseView(navController, CourseViewModel(Course(it.arguments?.getInt("campusId")?:-1,"teste","teste")))
+                                coursesViewModel.setCourse(it.arguments?.getInt("courseId")?:-1)
+                                CourseView(coursesViewModel)
                             }
                             composable(
                                 route = "campus/{campusId}",
