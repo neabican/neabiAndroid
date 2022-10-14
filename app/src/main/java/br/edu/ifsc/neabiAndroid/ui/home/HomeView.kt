@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
@@ -39,9 +38,6 @@ fun HomeView(
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text("Buscar") },
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color(0xFFFFFFFF)
-                )
             )
             Spacer(modifier = Modifier.size(16.dp))
         }

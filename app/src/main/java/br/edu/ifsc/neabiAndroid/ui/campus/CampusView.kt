@@ -1,7 +1,5 @@
 package br.edu.ifsc.neabiAndroid.ui.campus
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,12 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
-import br.edu.ifsc.neabiAndroid.data.remote.NeabicanApi
-import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import androidx.navigation.NavController
-import br.edu.ifsc.neabiAndroid.domain.model.Address
 import br.edu.ifsc.neabiAndroid.ui.campus.components.AddressInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.BoxInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.CardItem
@@ -29,7 +23,6 @@ import br.edu.ifsc.neabiAndroid.util.sizeExtraLarge
 import br.edu.ifsc.neabiAndroid.util.sizeLarge
 import br.edu.ifsc.neabiAndroid.util.sizeMedium
 import coil.compose.SubcomposeAsyncImage
-import java.net.URI
 
 
 @Composable
@@ -121,8 +114,7 @@ fun CampusView(
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = sizeExtraLarge, end = sizeExtraLarge)
-                .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
+                .padding(start = sizeExtraLarge, end = sizeExtraLarge),
             shape = RoundedCornerShape(sizeMedium),
             onClick = {
                 uriHandler.openUri(campus.value?.link ?: "www.google.com")
