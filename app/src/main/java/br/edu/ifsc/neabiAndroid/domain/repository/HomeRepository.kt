@@ -9,23 +9,20 @@ import kotlinx.coroutines.flow.flow
 
 class HomeRepository(private val dao: CampusDao) {
 
-     fun getCampus(): Flow<Resource<List<Campus>>>{
+     fun getCampus(): Flow<List<Campus>>{
         return flow {
-            emit(Resource.Loading(isLoading = true))
             val homeInfo = dao.getHomeInfo()
             emit(
-                Resource.Success(
-                    data = homeInfo.map {
-                        Campus(
-                            pk = it.campusEntity.pk,
-                            name = it.campusEntity.name,
-                            image = it.campusEntity.image,
-                            link = it.campusEntity.link,
-                            institution = it.institution.toDomain(),
-                            address = it.address.toDomain()
-                        )
-                    }
-                )
+                 homeInfo.map {
+                    Campus(
+                        pk = it.campusEntity.pk,
+                        name = it.campusEntity.name,
+                        image = it.campusEntity.image,
+                        link = it.campusEntity.link,
+                        institution = it.institution.toDomain(),
+                        address = it.address.toDomain()
+                    )
+                }
             )
         }
     }

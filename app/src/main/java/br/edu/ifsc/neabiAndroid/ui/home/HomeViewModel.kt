@@ -11,29 +11,26 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val rep: HomeRepository): ViewModel() {
 
-    private val _campus: Flow<Resource<List<Campus>>> = rep.getCampus()
-    val campus = _campus
-
-    var campusList = emptyList<Campus>()
-
-    init {
-        viewModelScope.launch {
-            campus.collect { resource ->
-                when (resource) {
-                    is Resource.Success -> {
-                        campusList = resource.data!!
-                    }
-                }
-
+    private val _filter: MutableLiveData<String> = MutableLiveData("")
+    private val _campus: LiveData<List<Campus>> = rep.getCampus().asLiveData()
+    val campus: LiveData<List<Campus>>
+        get() {
+            return if(_filter.value==""){
+                _campus
+            }else{
+                val filterCampus: List<Campus> = _campus.value?.filter {
+                    it.name.contains(_filter.value?:"", ignoreCase = true)
+                            || it.institution.name.contains(_filter.value?:"", ignoreCase = true)
+                } ?: listOf()
+                MutableLiveData(filterCampus)
             }
         }
-    }
 
-    fun getCampus(searchOption: String?): List<Campus> {
-        if (searchOption != null) {
-            return campusList.filter { it.name.contains(searchOption, ignoreCase = true) }
-        }
-        return campusList
+    val filter: LiveData<String>
+        get() =_filter
+
+    fun updateFilter(search: String){
+        _filter.value = search
     }
 }
 
