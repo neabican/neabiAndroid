@@ -3,11 +3,13 @@ package br.edu.ifsc.neabiAndroid.ui.home
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -34,10 +36,19 @@ fun HomeView(
             onValueChange = {
                 viewModel.updateFilter(it)
             },
+            shape = MaterialTheme.shapes.medium.copy(
+                topStart = CornerSize(0.dp),
+                topEnd = CornerSize(0.dp)
+            ),
             maxLines = 1,
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("Buscar") },
+            placeholder = {
+                Row(){
+                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
+                    Text("Buscar")
+                }
+            },
             trailingIcon = {
                 if(searchText!=""){
                     IconButton(onClick = { viewModel.updateFilter("") }) {
@@ -59,7 +70,9 @@ fun HomeView(
             items(campusList) {
                 CampusCard(navController = navController, campus = it)
             }
-
+            item { 
+                Spacer(modifier = Modifier.size(16.dp))
+            }
         }
     }
 }

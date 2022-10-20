@@ -1,6 +1,8 @@
 package br.edu.ifsc.neabiAndroid.ui.home.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -22,7 +24,10 @@ fun CampusCard(navController: NavController, campus: Campus) {
     Card(
         modifier = Modifier
             .padding(sizeMedium)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                navController.navigate("campus/${campus.pk}")
+            },
         elevation = sizeSmall,
         shape = RoundedCornerShape(sizeLarge)
     ) {
@@ -56,7 +61,11 @@ fun CampusCard(navController: NavController, campus: Campus) {
                     onClick = {
                         navController.navigate("campus/${campus.pk}")
                     },
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
+                    shape = MaterialTheme.shapes.medium.copy(
+                        topEnd = CornerSize(0.dp),
+                        topStart = CornerSize(0.dp)
+                    )
                 ) {
                     Text(
                         "Clique para mais informações sobre a instituição",

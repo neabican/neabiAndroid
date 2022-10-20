@@ -100,9 +100,6 @@ fun NeabicanApp(
     val scope = rememberCoroutineScope()
     val loading = splashViewModel.isLoading.collectAsState()
     val navController: NavHostController = rememberNavController()
-    val floatActionState = remember {
-        mutableStateOf(false)
-    }
 
     if(loading.value){
         SplashScreen(viewModel = splashViewModel)
@@ -110,20 +107,18 @@ fun NeabicanApp(
         Scaffold(
             scaffoldState = scaffoldState,
             floatingActionButton = {
-                if (floatActionState.value){
-                    FloatingActionButton(
-                        onClick = { /*TODO*/ },
-                        backgroundColor = PrimaryColor,
-                        modifier = Modifier
-                            .scale(1.05f)
-                            .offset((-10).dp, (-10).dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.LocationOn,
-                            tint = Color.Black,
-                            contentDescription = "Abrir Mapa"
-                        )
-                    }
+                FloatingActionButton(
+                    onClick = { /*TODO*/ },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    modifier = Modifier
+                        .scale(1.05f)
+                        .offset((-10).dp, (-10).dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        tint = Color.Black,
+                        contentDescription = "Abrir Mapa"
+                    )
                 }
             },
             topBar = {
