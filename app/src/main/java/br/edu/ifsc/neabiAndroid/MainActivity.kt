@@ -6,8 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -27,6 +25,10 @@ import br.edu.ifsc.neabiAndroid.ui.course.CoursesViewModel
 import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
+import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerAppBar
+import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerBoby
+import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerHeader
+import br.edu.ifsc.neabiAndroid.ui.navegation.Items
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashScreen
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashVMFactory
@@ -67,41 +69,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NeabicanApp(splashViewModel) {
-                        val navController: NavHostController = rememberNavController()
-                        val startDestination = "home"
-
-                        NavHost(navController = navController, startDestination = startDestination) {
-                            composable("home") {
-                                HomeView(
-                                    homeViewModel,
-                                    navController
-                                )
-                            }
-                            composable(
-                                route = "course/{courseId}",
-                            arguments = listOf(
-                                navArgument("courseId"){
-                                    defaultValue = -1
-                                    type = NavType.IntType
-                                })
-                            ) {
-                                coursesViewModel.setCourse(it.arguments?.getInt("courseId")?:-1)
-                                CourseView(coursesViewModel)
-                            }
-                            composable(
-                                route = "campus/{campusId}",
-                                arguments = listOf(
-                                    navArgument("campusId"){
-                                        defaultValue = -1
-                                        type = NavType.IntType
-                                    })
-                            ){
-                                campusViewModel.setCampus(it.arguments?.getInt("campusId")?:-1)
-                                CampusView(navController, campusViewModel)
-                            }
-                        }
-                    }
+                    NeabicanApp(
+                        splashViewModel,
+                        homeViewModel,
+                        campusViewModel,
+                        coursesViewModel
+                    )
                 }
             }
         }
@@ -109,37 +82,83 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NeabicanApp(viewModel: SplashViewModel,content: @Composable() () -> Unit) {
+fun NeabicanApp(
+    viewModel: SplashViewModel,
+    homeViewModel: HomeViewModel,
+    campusViewModel: CampusViewModel,
+    coursesViewModel: CoursesViewModel
+) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    val loaded = viewModel.isLoading.collectAsState()
+    val loading = viewModel.isLoading.collectAsState()
+    val navController: NavHostController = rememberNavController()
 
-    if(loaded.value){
+    if(loading.value){
         SplashScreen(viewModel = viewModel)
     }else {
         Scaffold(
+            scaffoldState = scaffoldState,
             topBar = {
-                TopAppBar(
-                    title = { Text("Sistema Educacional") },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = {
-                                scope.launch {
-                                    scaffoldState.drawerState.apply {
-                                        if (isClosed) open() else close()
-                                    }
-                                }
-                            }
-                        ) {
-                            Icon(Icons.Filled.Menu, contentDescription = "Menu")
+                DrawerAppBar(
+                    onNavigationIconClick = {
+                        scope.launch {
+                            scaffoldState.drawerState.open()
                         }
-                    },
+                    }
                 )
             },
-            scaffoldState = scaffoldState,
-            drawerContent = {}
+            drawerContent = {
+                DrawerHeader()
+                DrawerBoby(
+                    items = Items.menuItems,
+                    modifier = Modifier,
+                    onItemClick = {
+                        when(it.id){
+                            "Home" -> {
+                                navController.navigate("home")
+                            }
+                            "Campus" -> {
+                                navController.navigate("home")
+                            }
+                        }
+                        scope.launch {
+                            scaffoldState.drawerState.close()
+                        }
+                    }
+                )
+            }
         ) {
-            content()
+            NavHost(navController = navController, startDestination = "home") {
+                composable("home") {
+                    HomeView(
+                        homeViewModel,
+                        navController
+                    )
+                }
+                composable(
+                    route = "course/{courseId}",
+                    arguments = listOf(
+                        navArgument("courseId"){
+                            defaultValue = -1
+                            type = NavType.IntType
+                        })
+                ) {
+                    coursesViewModel.setCourse(it.arguments?.getInt("courseId")?:-1)
+                    CourseView(coursesViewModel)
+                }
+                composable(
+                    route = "campus/{campusId}",
+                    arguments = listOf(
+                        navArgument("campusId"){
+                            defaultValue = -1
+                            type = NavType.IntType
+                        })
+                ){
+                    campusViewModel.setCampus(it.arguments?.getInt("campusId")?:-1)
+                    CampusView(navController, campusViewModel)
+                }
+            }
+
         }
     }
 }
