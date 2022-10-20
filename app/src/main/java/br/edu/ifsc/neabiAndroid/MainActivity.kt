@@ -1,15 +1,22 @@
 package br.edu.ifsc.neabiAndroid
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -33,6 +40,7 @@ import br.edu.ifsc.neabiAndroid.ui.splash.SplashScreen
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashVMFactory
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashViewModel
+import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -83,21 +91,41 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NeabicanApp(
-    viewModel: SplashViewModel,
+    splashViewModel: SplashViewModel,
     homeViewModel: HomeViewModel,
     campusViewModel: CampusViewModel,
     coursesViewModel: CoursesViewModel
 ) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    val loading = viewModel.isLoading.collectAsState()
+    val loading = splashViewModel.isLoading.collectAsState()
     val navController: NavHostController = rememberNavController()
+    val floatActionState = remember {
+        mutableStateOf(false)
+    }
 
     if(loading.value){
-        SplashScreen(viewModel = viewModel)
+        SplashScreen(viewModel = splashViewModel)
     }else {
         Scaffold(
             scaffoldState = scaffoldState,
+            floatingActionButton = {
+                if (floatActionState.value){
+                    FloatingActionButton(
+                        onClick = { /*TODO*/ },
+                        backgroundColor = PrimaryColor,
+                        modifier = Modifier
+                            .scale(1.05f)
+                            .offset((-10).dp, (-10).dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.LocationOn,
+                            tint = Color.Black,
+                            contentDescription = "Abrir Mapa"
+                        )
+                    }
+                }
+            },
             topBar = {
                 DrawerAppBar(
                     onNavigationIconClick = {

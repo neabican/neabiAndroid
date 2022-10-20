@@ -63,7 +63,7 @@ fun CampusView(
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
                 for (course in campus.value?.courses ?: listOf())
                     CardItem(name = course.course.name){
-                        navController.navigate("course/${course.course.pk}")
+                        navController.navigate("course/${course.pk}")
                     }
             }
         }

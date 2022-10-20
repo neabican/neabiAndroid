@@ -53,7 +53,7 @@ fun CourseView(
             AndroidView(
                 modifier = Modifier.fillMaxWidth(),
                 factory = { context -> TextView(context) },
-                update = { it.text = HtmlCompat.fromHtml(course.value?.course?.description?:"", HtmlCompat.FROM_HTML_MODE_COMPACT) }
+                update = { it.text = HtmlCompat.fromHtml(course.value?.course?.description?:"", HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST) }
             )
 
             val uriHandler = LocalUriHandler.current

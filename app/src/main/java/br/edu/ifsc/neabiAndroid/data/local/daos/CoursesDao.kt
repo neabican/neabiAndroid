@@ -14,8 +14,8 @@ interface CoursesDao {
     @Query("SELECT * FROM courses")
     fun getAllCourses(): LiveData<List<CoursesEntity>>
 
-    @Query("SELECT * FROM courses WHERE pk=:pk")
-    fun getCourseUnion(pk:Int): LiveData<CourseUnion>
+    @Query("SELECT * FROM courses WHERE pk=:coursePk")
+    fun getCourseUnion(coursePk:Int): LiveData<CourseUnion>
 
     @Query("DELETE FROM courses")
     suspend fun clearTable()

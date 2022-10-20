@@ -15,12 +15,12 @@ class CoursesViewModel(val rep: CoursesRepository): ViewModel() {
     val courses: LiveData<Courses>
         get() = _courses
 
-    fun setCourse(campusPk: Int){
-        if(campusPk==-1){
+    fun setCourse(coursePk: Int){
+        if(coursePk==-1){
             _courses = MutableLiveData(Courses(-1,"","Não foi possivel encontar o curso", Course(0,"",""),1))
         }
         viewModelScope.launch {
-            _courses = rep.getCourseUnion(campusPk)
+            _courses = rep.getCourseUnion(coursePk)
         }
     }
 }
