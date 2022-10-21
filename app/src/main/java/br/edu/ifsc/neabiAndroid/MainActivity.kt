@@ -1,16 +1,13 @@
 package br.edu.ifsc.neabiAndroid
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -26,9 +23,10 @@ import androidx.navigation.navArgument
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusVMFactory
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusView
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusViewModel
-import br.edu.ifsc.neabiAndroid.ui.course.CourseView
-import br.edu.ifsc.neabiAndroid.ui.course.CoursesVMFactory
-import br.edu.ifsc.neabiAndroid.ui.course.CoursesViewModel
+import br.edu.ifsc.neabiAndroid.ui.course.detail.CourseView
+import br.edu.ifsc.neabiAndroid.ui.course.detail.CoursesVMFactory
+import br.edu.ifsc.neabiAndroid.ui.course.detail.CoursesViewModel
+import br.edu.ifsc.neabiAndroid.ui.course.list.CourseListScreen
 import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
@@ -40,7 +38,6 @@ import br.edu.ifsc.neabiAndroid.ui.splash.SplashScreen
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashVMFactory
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashViewModel
-import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -116,7 +113,7 @@ fun NeabicanApp(
                 ) {
                     Icon(
                         imageVector = Icons.Default.LocationOn,
-                        tint = Color.Black,
+                        tint = Color.White,
                         contentDescription = "Abrir Mapa"
                     )
                 }
@@ -142,6 +139,9 @@ fun NeabicanApp(
                             }
                             "Campus" -> {
                                 navController.navigate("home")
+                            }
+                            "Course" ->{
+                                navController.navigate("course")
                             }
                         }
                         scope.launch {
@@ -179,6 +179,9 @@ fun NeabicanApp(
                 ){
                     campusViewModel.setCampus(it.arguments?.getInt("campusId")?:-1)
                     CampusView(navController, campusViewModel)
+                }
+                composable(route = "course"){
+                    CourseListScreen()
                 }
             }
 

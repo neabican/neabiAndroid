@@ -1,4 +1,4 @@
-package br.edu.ifsc.neabiAndroid.ui.course
+package br.edu.ifsc.neabiAndroid.ui.course.detail
 
 import android.widget.TextView
 import androidx.compose.foundation.*
