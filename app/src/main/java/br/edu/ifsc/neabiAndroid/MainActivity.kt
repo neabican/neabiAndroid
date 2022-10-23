@@ -31,10 +31,10 @@ import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
 import br.edu.ifsc.neabiAndroid.ui.map.MapView
-import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerAppBar
-import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerBoby
-import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerHeader
-import br.edu.ifsc.neabiAndroid.ui.navegation.Items
+import br.edu.ifsc.neabiAndroid.ui.navigation.DrawerAppBar
+import br.edu.ifsc.neabiAndroid.ui.navigation.DrawerBoby
+import br.edu.ifsc.neabiAndroid.ui.navigation.DrawerHeader
+import br.edu.ifsc.neabiAndroid.ui.navigation.Items
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashScreen
 import br.edu.ifsc.neabiAndroid.ui.theme.NeabiAndroidTheme
 import br.edu.ifsc.neabiAndroid.ui.splash.SplashVMFactory

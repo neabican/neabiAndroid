@@ -1,4 +1,4 @@
-package br.edu.ifsc.neabiAndroid.ui.navegation
+package br.edu.ifsc.neabiAndroid.ui.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
