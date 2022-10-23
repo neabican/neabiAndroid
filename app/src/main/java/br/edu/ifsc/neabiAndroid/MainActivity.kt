@@ -30,6 +30,7 @@ import br.edu.ifsc.neabiAndroid.ui.course.list.CourseListScreen
 import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
+import br.edu.ifsc.neabiAndroid.ui.map.MapView
 import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerAppBar
 import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerBoby
 import br.edu.ifsc.neabiAndroid.ui.navegation.DrawerHeader
@@ -97,15 +98,24 @@ fun NeabicanApp(
     val scope = rememberCoroutineScope()
     val loading = splashViewModel.isLoading.collectAsState()
     val navController: NavHostController = rememberNavController()
+    var fabState = false
 
     if(loading.value){
         SplashScreen(viewModel = splashViewModel)
-    }else {
+    } else {
         Scaffold(
             scaffoldState = scaffoldState,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        if (!fabState) {
+                            fabState = true
+                            navController.navigate("map")
+                        } else {
+                            fabState = false
+                            navController.popBackStack()
+                        }
+                    },
                     backgroundColor = MaterialTheme.colors.primary,
                     modifier = Modifier
                         .scale(1.05f)
@@ -155,6 +165,11 @@ fun NeabicanApp(
                 composable("home") {
                     HomeView(
                         homeViewModel,
+                        navController
+                    )
+                }
+                composable("map") {
+                    MapView(
                         navController
                     )
                 }
