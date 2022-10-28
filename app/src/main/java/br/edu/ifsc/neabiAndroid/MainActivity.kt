@@ -139,11 +139,6 @@ fun NeabicanApp(
                         navController
                     )
                 }
-                composable("map") {
-                    MapView(
-                        navController
-                    )
-                }
                 composable(
                     route = "course/{courseId}",
                     arguments = listOf(
