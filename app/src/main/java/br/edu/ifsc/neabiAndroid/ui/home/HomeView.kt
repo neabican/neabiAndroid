@@ -9,16 +9,22 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.ui.home.components.CampusCard
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.*
 
 @Composable
 fun HomeView(
@@ -28,6 +34,7 @@ fun HomeView(
     val searchText by viewModel.filter.observeAsState("")
     val campusList by viewModel.campus.observeAsState(initial = listOf())
     val focusManager = LocalFocusManager.current
+    var fabState by remember { mutableStateOf(false) }
 
     Column() {
         Spacer(modifier = Modifier.height(0.dp))
@@ -63,15 +70,52 @@ fun HomeView(
                 }
             )
         )
-        LazyColumn() {
-            item {
-                Spacer(modifier = Modifier.size(16.dp))
+        Box(modifier = Modifier.fillMaxSize()) {
+            if (!fabState) {
+                LazyColumn() {
+                    items(campusList) {
+                        CampusCard(navController = navController, campus = it)
+                    }
+                    item {
+                        Spacer(modifier = Modifier.size(16.dp))
+                    }
+                }
+            } else {
+                val mapCenter = LatLng(-26.1833444,-50.3670326)
+                val cameraPositionState = rememberCameraPositionState {
+                    position = CameraPosition.fromLatLngZoom(mapCenter, 7f)
+                }
+                GoogleMap(
+                    modifier = Modifier.fillMaxSize(),
+                    cameraPositionState = cameraPositionState
+                ) {
+                    campusList.forEach { campus ->
+                        Marker(
+                            position = LatLng(campus.address.latitude.toDouble(), campus.address.longitude.toDouble()),
+                            title = campus.name,
+                            snippet = campus.name,
+                            onInfoWindowClick = {
+                                navController.navigate("campus/${campus.pk}")
+                            }
+                        )
+                    }
+
+                }
             }
-            items(campusList) {
-                CampusCard(navController = navController, campus = it)
-            }
-            item { 
-                Spacer(modifier = Modifier.size(16.dp))
+
+            FloatingActionButton(
+                modifier = Modifier
+                    .padding(all = 16.dp)
+                    .align(alignment = Alignment.BottomStart)
+                    .scale(1.05f),
+                onClick = { fabState = !fabState },
+                backgroundColor = MaterialTheme.colors.primary,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.LocationOn,
+                    tint = Color.White,
+                    contentDescription = "Abrir Mapa"
+                )
             }
         }
     }

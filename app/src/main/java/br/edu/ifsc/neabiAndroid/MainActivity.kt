@@ -5,15 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -98,36 +92,13 @@ fun NeabicanApp(
     val scope = rememberCoroutineScope()
     val loading = splashViewModel.isLoading.collectAsState()
     val navController: NavHostController = rememberNavController()
-    var fabState = false
 
     if(loading.value){
         SplashScreen(viewModel = splashViewModel)
     } else {
         Scaffold(
+            drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
             scaffoldState = scaffoldState,
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = {
-                        if (!fabState) {
-                            fabState = true
-                            navController.navigate("map")
-                        } else {
-                            fabState = false
-                            navController.popBackStack()
-                        }
-                    },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    modifier = Modifier
-                        .scale(1.05f)
-                        .offset((-10).dp, (-10).dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.LocationOn,
-                        tint = Color.White,
-                        contentDescription = "Abrir Mapa"
-                    )
-                }
-            },
             topBar = {
                 DrawerAppBar(
                     onNavigationIconClick = {
