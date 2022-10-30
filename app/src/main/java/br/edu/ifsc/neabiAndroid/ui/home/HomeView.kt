@@ -1,5 +1,7 @@
 package br.edu.ifsc.neabiAndroid.ui.home
 
+import android.Manifest
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,14 +20,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.ui.home.components.CampusCard
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 
+@SuppressLint("MissingPermission")
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomeView(
     viewModel: HomeViewModel,
@@ -36,7 +45,25 @@ fun HomeView(
     val focusManager = LocalFocusManager.current
     var fabState by remember { mutableStateOf(false) }
 
-    Column() {
+    val permissionState = rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(key1 = lifecycleOwner, effect = {
+        val eventObserver = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_START -> {
+                    permissionState.launchPermissionRequest()
+                }
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(eventObserver)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(eventObserver)
+        }
+    })
+
+    Column {
         Spacer(modifier = Modifier.height(0.dp))
         TextField(
             value = searchText,
@@ -51,7 +78,7 @@ fun HomeView(
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             placeholder = {
-                Row(){
+                Row{
                     Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                     Text("Buscar")
                 }
@@ -72,7 +99,7 @@ fun HomeView(
         )
         Box(modifier = Modifier.fillMaxSize()) {
             if (!fabState) {
-                LazyColumn() {
+                LazyColumn {
                     items(campusList) {
                         CampusCard(navController = navController, campus = it)
                     }
@@ -87,12 +114,19 @@ fun HomeView(
                 }
                 GoogleMap(
                     modifier = Modifier.fillMaxSize(),
-                    cameraPositionState = cameraPositionState
+                    cameraPositionState = cameraPositionState,
+                    properties = MapProperties(
+                        isMyLocationEnabled = true
+                    ),
+                    uiSettings = MapUiSettings(
+                        compassEnabled = true,
+                        myLocationButtonEnabled = true
+                    )
                 ) {
                     campusList.forEach { campus ->
                         Marker(
                             position = LatLng(campus.address.latitude.toDouble(), campus.address.longitude.toDouble()),
-                            title = campus.name,
+                            title = campus.institution.initials,
                             snippet = campus.name,
                             onInfoWindowClick = {
                                 navController.navigate("campus/${campus.pk}")

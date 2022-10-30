@@ -24,7 +24,6 @@ import br.edu.ifsc.neabiAndroid.ui.course.list.CourseListScreen
 import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
-import br.edu.ifsc.neabiAndroid.ui.map.MapView
 import br.edu.ifsc.neabiAndroid.ui.navigation.DrawerAppBar
 import br.edu.ifsc.neabiAndroid.ui.navigation.DrawerBoby
 import br.edu.ifsc.neabiAndroid.ui.navigation.DrawerHeader
