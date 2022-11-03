@@ -137,20 +137,21 @@ fun HomeView(
                 }
             }
 
-            FloatingActionButton(
-                modifier = Modifier
-                    .padding(all = 16.dp)
-                    .align(alignment = Alignment.BottomStart)
-                    .scale(1.05f),
-                onClick = { fabState = !fabState },
-                backgroundColor = MaterialTheme.colors.primary,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.LocationOn,
-                    tint = Color.White,
-                    contentDescription = "Abrir Mapa"
-                )
-            }
+            if (permissionState.hasPermission)
+                FloatingActionButton(
+                    modifier = Modifier
+                        .padding(all = 16.dp)
+                        .align(alignment = Alignment.BottomStart)
+                        .scale(1.05f),
+                    onClick = { fabState = !fabState },
+                    backgroundColor = MaterialTheme.colors.primary,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        tint = Color.White,
+                        contentDescription = "Abrir Mapa"
+                    )
+                }
         }
     }
 }
