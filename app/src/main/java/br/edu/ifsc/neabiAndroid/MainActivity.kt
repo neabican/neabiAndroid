@@ -21,6 +21,8 @@ import br.edu.ifsc.neabiAndroid.ui.course.detail.CourseView
 import br.edu.ifsc.neabiAndroid.ui.course.detail.CoursesVMFactory
 import br.edu.ifsc.neabiAndroid.ui.course.detail.CoursesViewModel
 import br.edu.ifsc.neabiAndroid.ui.course.list.CourseListScreen
+import br.edu.ifsc.neabiAndroid.ui.course.list.CourseListViewModel
+import br.edu.ifsc.neabiAndroid.ui.course.list.CourseVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeVMFactory
 import br.edu.ifsc.neabiAndroid.ui.home.HomeView
 import br.edu.ifsc.neabiAndroid.ui.home.HomeViewModel
@@ -62,6 +64,12 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val courseViewModel by viewModels<CourseListViewModel>(){
+            CourseVMFactory(
+                (this.applicationContext as NeabiCanApplication).courseRepository
+            )
+        }
+
         setContent {
             NeabiAndroidTheme {
                 Surface(
@@ -72,7 +80,8 @@ class MainActivity : ComponentActivity() {
                         splashViewModel,
                         homeViewModel,
                         campusViewModel,
-                        coursesViewModel
+                        coursesViewModel,
+                        courseViewModel
                     )
                 }
             }
@@ -85,7 +94,8 @@ fun NeabicanApp(
     splashViewModel: SplashViewModel,
     homeViewModel: HomeViewModel,
     campusViewModel: CampusViewModel,
-    coursesViewModel: CoursesViewModel
+    coursesViewModel: CoursesViewModel,
+    courseViewModel: CourseListViewModel
 ) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -161,7 +171,7 @@ fun NeabicanApp(
                     CampusView(navController, campusViewModel)
                 }
                 composable(route = "course"){
-                    CourseListScreen()
+                    CourseListScreen(navController, courseViewModel)
                 }
             }
 

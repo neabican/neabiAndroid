@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -25,55 +26,37 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.domain.model.Course
+import br.edu.ifsc.neabiAndroid.ui.sharedcomp.SearchField
 import br.edu.ifsc.neabiAndroid.util.sizeLarge
 import br.edu.ifsc.neabiAndroid.util.sizeMedium
 import br.edu.ifsc.neabiAndroid.util.sizeSmall
 
 @Composable
 fun CourseListScreen(
-    //viewModel: CourseListViewModel
+    navController: NavController,
+    viewModel: CourseListViewModel
 ) {
-
-    val searchText by remember {
-        mutableStateOf("")
-    }
+    val search by viewModel.filter.observeAsState(initial = "")
+    val courses by viewModel.courses.observeAsState(initial = listOf())
     val focusManager = LocalFocusManager.current
-    Column() {
-        TextField(
-            value = searchText,
-            onValueChange = {
 
+    Column {
+        Spacer(modifier = Modifier.height(4.dp))
+        SearchField(
+            search = search,
+            onValueChange = {
+                viewModel.updateFilter(it)
             },
-            shape = MaterialTheme.shapes.medium.copy(
-                topStart = CornerSize(0.dp),
-                topEnd = CornerSize(0.dp)
-            ),
-            maxLines = 1,
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = {
-                Row(){
-                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
-                    Text("Buscar")
-                }
-            },
-            trailingIcon = {
-                if(searchText!=""){
-                    IconButton(onClick = {  }) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = "Limpar Pesquisa")
-                    }
-                }
-            },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    focusManager.clearFocus()
-                }
-            )
+            focusManager = focusManager,
+            onClearButtonClicked = {
+                viewModel.updateFilter("")
+            }
         )
+
         LazyColumn(){
-            items(listOf<Course>(Course(1,"Análise Desenvolvimento de Sistemas","Sem"))){
+            items(courses.sortedBy { it.name }){
                 SimpleCardItem(course = it){
 
                 }
@@ -89,7 +72,7 @@ fun SimpleCardItem(
 ) {
     Card(
         modifier = Modifier
-            .padding(sizeMedium)
+            .padding(sizeSmall)
             .fillMaxWidth()
             .clickable { onCardClicked },
         elevation = sizeSmall,

@@ -20,3 +20,9 @@ fun CourseEntity.toDomain(): Course {
         description = this.description
     )
 }
+
+fun List<CourseEntity>.toDomain(): List<Course>{
+    return map {
+        it.toDomain()
+    }
+}

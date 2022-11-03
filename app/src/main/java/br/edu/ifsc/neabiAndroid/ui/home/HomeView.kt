@@ -27,6 +27,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.ui.home.components.CampusCard
+import br.edu.ifsc.neabiAndroid.ui.sharedcomp.SearchField
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.maps.model.CameraPosition
@@ -65,38 +66,14 @@ fun HomeView(
 
     Column {
         Spacer(modifier = Modifier.height(0.dp))
-        TextField(
-            value = searchText,
-            onValueChange = {
-                viewModel.updateFilter(it)
-            },
-            shape = MaterialTheme.shapes.medium.copy(
-                topStart = CornerSize(0.dp),
-                topEnd = CornerSize(0.dp)
-            ),
-            maxLines = 1,
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = {
-                Row{
-                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
-                    Text("Buscar")
-                }
-            },
-            trailingIcon = {
-                if(searchText!=""){
-                    IconButton(onClick = { viewModel.updateFilter("") }) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = "Limpar Pesquisa")
-                    }
-                }
-            },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    focusManager.clearFocus()
-                }
-            )
+
+        SearchField(
+            search = searchText,
+            onValueChange = { viewModel.updateFilter(it) },
+            focusManager = focusManager,
+            onClearButtonClicked = {viewModel.updateFilter("")}
         )
+
         Box(modifier = Modifier.fillMaxSize()) {
             if (!fabState) {
                 LazyColumn {
