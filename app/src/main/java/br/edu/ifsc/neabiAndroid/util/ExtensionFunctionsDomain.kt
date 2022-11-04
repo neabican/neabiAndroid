@@ -25,6 +25,7 @@ fun AllCampusInfo.toDomain(): Campus {
         name = campus.name,
         image = campus.image,
         link = campus.link,
+        description = campus.description,
         institution = institution.toDomain(),
         address = address.toDomain(),
         courses = courses.toDomain(),
@@ -75,7 +76,8 @@ fun List<CourseUnion>.toDomain(): List<Courses>{
             link = it.coursesEntity.link,
             addition_info = it.coursesEntity.addition_info,
             course = it.courseEntity.toDomain(),
-            campus = it.coursesEntity.campusPk
+            campus = it.coursesEntity.campusPk,
+            vacancies = it.coursesEntity.vacancies
         )
     }
 }

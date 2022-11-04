@@ -19,7 +19,8 @@ class CoursesRepository(private val dao: CoursesDao){
                     link = it.coursesEntity.link,
                     addition_info = it.coursesEntity.addition_info,
                     campus = it.coursesEntity.campusPk,
-                    course = it.courseEntity.toDomain()
+                    course = it.courseEntity.toDomain(),
+                    vacancies = it.coursesEntity.vacancies
                 )
             }
         }

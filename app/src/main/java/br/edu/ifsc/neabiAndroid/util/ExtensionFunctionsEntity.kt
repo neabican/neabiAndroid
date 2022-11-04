@@ -14,7 +14,8 @@ fun List<CoursesDto>.toEntity(campusPk: Int): List<CoursesEntity>{
             link = it.link,
             addition_info = it.addition_info,
             coursePk = it.courseDto.pk,
-            campusPk = campusPk
+            campusPk = campusPk,
+            vacancies = it.vacancies
         )
     }
 }

@@ -31,4 +31,5 @@ data class CampusEntity(
     val link: String,
     val institutionPk: Int,
     val addressPk: Int,
+    val description: String,
 )

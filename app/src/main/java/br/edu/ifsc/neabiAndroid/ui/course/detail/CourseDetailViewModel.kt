@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import br.edu.ifsc.neabiAndroid.domain.model.Course
 import br.edu.ifsc.neabiAndroid.domain.model.Courses
 import br.edu.ifsc.neabiAndroid.domain.repository.CoursesRepository
+import br.edu.ifsc.neabiAndroid.util.EmptyClass
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -15,7 +16,7 @@ class CoursesViewModel(val rep: CoursesRepository): ViewModel() {
 
     fun setCourse(coursePk: Int){
         if(coursePk==-1){
-            _courses = MutableLiveData(Courses(-1,"","Não foi possivel encontar o curso", Course(0,"",""),1))
+            _courses = MutableLiveData(EmptyClass.emptyCourse)
         }
         viewModelScope.launch {
             _courses = rep.getCourseUnion(coursePk)

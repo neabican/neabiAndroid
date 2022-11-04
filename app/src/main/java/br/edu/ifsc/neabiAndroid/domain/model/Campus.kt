@@ -7,6 +7,7 @@ data class Campus(
     val link: String,
     val institution: Institution,
     val address: Address,
+    val description: String,
     val courses: List<Courses> = listOf(),
     val program: List<Program> = listOf(),
     val project: List<Project> = listOf(),

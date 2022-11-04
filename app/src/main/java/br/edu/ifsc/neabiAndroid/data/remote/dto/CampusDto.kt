@@ -20,6 +20,9 @@ data class CampusDto(
     @Json(name = "endereco")
     val addressDto: AddressDto,
 
+    @Json(name = "descricao")
+    val description: String,
+
     @Json(name = "cursos")
     val courses: List<CoursesDto> = listOf(),
 
@@ -39,7 +42,8 @@ data class CampusDto(
             image = image,
             link = link,
             institutionPk = institution,
-            addressPk = addressDto.pk
+            addressPk = addressDto.pk,
+            description = description
         )
     }
 }

@@ -30,6 +30,7 @@ data class CoursesEntity(
     val pk: Int,
     val link: String,
     val addition_info: String,
+    val vacancies: Int,
     val coursePk: Int,
     val campusPk: Int
 )

@@ -12,7 +12,7 @@ import br.edu.ifsc.neabiAndroid.data.local.entities.*
     entities = [DBVersionEntity::class, InstitutionEntity::class, AddressEntity::class,
                 CourseEntity::class, CampusEntity::class, CoursesEntity::class,
                 ProgramEntity::class, ProjectEntity::class, StudentAidEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class NeabicanDatabase: RoomDatabase() {

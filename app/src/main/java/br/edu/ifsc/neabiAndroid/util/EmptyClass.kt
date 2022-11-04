@@ -1,10 +1,21 @@
 package br.edu.ifsc.neabiAndroid.util
 
-import br.edu.ifsc.neabiAndroid.domain.model.Address
-import br.edu.ifsc.neabiAndroid.domain.model.Campus
-import br.edu.ifsc.neabiAndroid.domain.model.Institution
+import br.edu.ifsc.neabiAndroid.domain.model.*
 
 object EmptyClass {
+
+    val emptyCourse = Courses(
+        -1,
+        "",
+        "Não foi possivel encontar o curso",
+        1,
+        Course(
+            1,
+            "",
+            ""
+        ),
+        1
+    )
 
     val emptyCampus = Campus(
         0,
@@ -26,6 +37,7 @@ object EmptyClass {
             "",
             "-26.1833444",
             "-50.3670326"
-        )
+        ),
+        ""
     )
 }
