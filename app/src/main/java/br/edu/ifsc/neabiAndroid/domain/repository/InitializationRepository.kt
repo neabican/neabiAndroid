@@ -3,9 +3,8 @@ package br.edu.ifsc.neabiAndroid.domain.repository
 import android.util.Log
 import br.edu.ifsc.neabiAndroid.data.local.NeabicanDatabase
 import br.edu.ifsc.neabiAndroid.data.remote.NeabicanApi
-import br.edu.ifsc.neabiAndroid.data.remote.dto.toDomain
-import br.edu.ifsc.neabiAndroid.domain.model.DBVersion
 import br.edu.ifsc.neabiAndroid.util.DBMapper
+import br.edu.ifsc.neabiAndroid.util.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -39,7 +38,7 @@ class InitializationRepository(private val db: NeabicanDatabase) {
         try {
             db.addressDao().clearTable()
             Log.d("debug", "-> Clear Table Address!")
-            db.affirmativeActionDao().clearTable()
+            db.studentAidDao().clearTable()
             Log.d("debug", "-> Clear Table AddirmativeAction!")
             db.campusDao().clearTable()
             Log.d("debug", "-> Clear Table Campus!")
@@ -51,7 +50,7 @@ class InitializationRepository(private val db: NeabicanDatabase) {
             Log.d("debug", "-> Clear Table Institution!")
             db.programDao().clearTable()
             Log.d("debug", "-> Clear Table Program!")
-            db.project().clearTable()
+            db.projectDao().clearTable()
             Log.d("debug", "-> Clear Table Project!")
             Log.d("debug", "-> DataBase Empty!!")
         }catch (e: Exception){
@@ -88,11 +87,11 @@ class InitializationRepository(private val db: NeabicanDatabase) {
                 Log.d("debug", "-> Campus insertion done!")
                 db.programDao().insertAllProgram(mapper.program)
                 Log.d("debug", "-> Program insertion done!")
-                db.affirmativeActionDao().insertAllAffitmativeActions(mapper.affirmativeAction)
+                db.studentAidDao().insertAllStudentAid(mapper.affirmativeAction)
                 Log.d("debug", "-> Affirmative Action insertion done!")
                 db.coursesDao().insertAllCourses(mapper.courses)
                 Log.d("debug", "-> Institution insertion done!")
-                db.project().insertAllProjects(mapper.project)
+                db.projectDao().insertAllProjects(mapper.project)
                 Log.d("debug", "-> Project insertion done!")
             }catch (e: Exception){
                 Log.e("room", "Ocorreu um erro ao armazenar dados: ${e.message}")

@@ -43,7 +43,6 @@ fun CourseListScreen(
     val focusManager = LocalFocusManager.current
 
     Column {
-        Spacer(modifier = Modifier.height(4.dp))
         SearchField(
             search = search,
             onValueChange = {
@@ -54,8 +53,10 @@ fun CourseListScreen(
                 viewModel.updateFilter("")
             }
         )
-
         LazyColumn(){
+            item(){
+                Spacer(modifier = Modifier.height(6.dp))
+            }
             items(courses.sortedBy { it.name }){
                 SimpleCardItem(course = it){
 

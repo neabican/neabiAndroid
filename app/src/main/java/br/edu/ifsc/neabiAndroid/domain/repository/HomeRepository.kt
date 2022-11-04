@@ -1,9 +1,9 @@
 package br.edu.ifsc.neabiAndroid.domain.repository
 
 import br.edu.ifsc.neabiAndroid.data.local.daos.CampusDao
-import br.edu.ifsc.neabiAndroid.data.local.entities.toDomain
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.util.Resource
+import br.edu.ifsc.neabiAndroid.util.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

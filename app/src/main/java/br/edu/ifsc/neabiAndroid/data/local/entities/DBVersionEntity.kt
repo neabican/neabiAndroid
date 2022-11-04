@@ -10,10 +10,3 @@ data class DBVersionEntity(
     val pk: Int,
     val version: Int
 )
-
-fun DBVersionEntity.asDomain(): DBVersion{
-    return DBVersion(
-        pk = pk,
-        version = version
-    )
-}

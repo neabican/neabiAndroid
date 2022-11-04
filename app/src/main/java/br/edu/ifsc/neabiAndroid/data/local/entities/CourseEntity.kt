@@ -11,18 +11,3 @@ data class CourseEntity (
     val name: String,
     val description: String,
 )
-
-
-fun CourseEntity.toDomain(): Course {
-    return Course(
-        pk = this.pk,
-        name = this.name,
-        description = this.description
-    )
-}
-
-fun List<CourseEntity>.toDomain(): List<Course>{
-    return map {
-        it.toDomain()
-    }
-}

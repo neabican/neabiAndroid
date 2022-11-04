@@ -17,14 +17,3 @@ data class ProgramDto(
     val campus: Int
 )
 
-fun List<ProgramDto>.toEntity(): List<ProgramEntity>{
-    return map{
-        ProgramEntity(
-            pk = it.pk,
-            name = it.name,
-            description = it.description,
-            link = it.link,
-            campusPk = it.campus
-        )
-    }
-}

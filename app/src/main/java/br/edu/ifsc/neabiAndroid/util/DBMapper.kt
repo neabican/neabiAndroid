@@ -2,11 +2,10 @@ package br.edu.ifsc.neabiAndroid.util
 
 import br.edu.ifsc.neabiAndroid.data.local.entities.*
 import br.edu.ifsc.neabiAndroid.data.remote.dto.InstitutionDto
-import br.edu.ifsc.neabiAndroid.data.remote.dto.toEntity
 
 class DBMapper() {
     var address: MutableList<AddressEntity> = mutableListOf()
-    var affirmativeAction: MutableList<AffirmativeActionEntity> = mutableListOf()
+    var affirmativeAction: MutableList<StudentAidEntity> = mutableListOf()
     var campus: MutableList<CampusEntity> = mutableListOf()
     var course: MutableList<CourseEntity> = mutableListOf()
     var courses: MutableList<CoursesEntity> = mutableListOf()
@@ -21,7 +20,7 @@ class DBMapper() {
             campus.addAll(item.campus.map { it.toEntity() })
             item.campus.map {
                 address.add(it.addressDto.toEntity())
-                affirmativeAction.addAll(it.affirmativeActionDto.toEntity())
+                affirmativeAction.addAll(it.studentAidDto.toEntity())
                 courses.addAll(it.courses.toEntity(it.pk))
                 course.addAll(
                     it.courses.map { index ->

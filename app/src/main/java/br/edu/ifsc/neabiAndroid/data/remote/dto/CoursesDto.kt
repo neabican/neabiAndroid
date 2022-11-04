@@ -12,15 +12,3 @@ data class CoursesDto(
     @Json(name = "curso")
     val courseDto: CourseDto
 )
-
-fun List<CoursesDto>.toEntity(campusPk: Int): List<CoursesEntity>{
-    return map{
-        CoursesEntity(
-            pk = it.pk,
-            link = it.link,
-            addition_info = it.addition_info,
-            coursePk = it.courseDto.pk,
-            campusPk = campusPk
-        )
-    }
-}

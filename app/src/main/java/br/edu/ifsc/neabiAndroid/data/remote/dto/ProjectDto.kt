@@ -16,15 +16,3 @@ data class ProjectDto(
     val link: String,
     val campus: Int
 )
-
-fun List<ProjectDto>.toEntity(): List<ProjectEntity>{
-    return map {
-        ProjectEntity(
-            pk = it.pk,
-            name = it.name,
-            description = it.description,
-            link = it.link,
-            campusPk = it.campus,
-        )
-    }
-}

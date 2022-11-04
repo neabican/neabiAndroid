@@ -16,16 +16,3 @@ data class AddressEntity(
     val latitude: String,
     val longitude: String
 )
-
-fun AddressEntity.toDomain(): Address{
-    return Address(
-        pk = pk,
-        city = city,
-        state = state,
-        public_place = public_place,
-        number = number,
-        zip_code = zip_code,
-        latitude = latitude,
-        longitude = longitude
-    )
-}

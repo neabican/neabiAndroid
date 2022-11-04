@@ -3,6 +3,7 @@ package br.edu.ifsc.neabiAndroid.data.remote
 import br.edu.ifsc.neabiAndroid.data.remote.dto.CampusDto
 import br.edu.ifsc.neabiAndroid.data.remote.dto.DBVersionDto
 import br.edu.ifsc.neabiAndroid.data.remote.dto.InstitutionDto
+import br.edu.ifsc.neabiAndroid.util.Adapter
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.Moshi
@@ -20,20 +21,8 @@ object BaseURL{
 }
 const val BASE_URL = "https://neabican.pythonanywhere.com"
 
-//Objeto para evitar armazenar NULL no Json
-object NULL_TO_EMPTY_STRING_ADAPTER {
-    @FromJson
-    fun fromJson(reader: JsonReader): String {
-        if (reader.peek() != JsonReader.Token.NULL) {
-            return reader.nextString()
-        }
-        reader.nextNull<Unit>()
-        return ""
-    }
-}
-
 private val moshi = Moshi.Builder()
-    .add(NULL_TO_EMPTY_STRING_ADAPTER)
+    .add(Adapter.NULL_TO_EMPTY_STRING_ADAPTER)
     .add(KotlinJsonAdapterFactory())
     .build()
 

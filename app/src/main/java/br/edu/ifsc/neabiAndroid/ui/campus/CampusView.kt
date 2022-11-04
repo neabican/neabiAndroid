@@ -1,11 +1,7 @@
 package br.edu.ifsc.neabiAndroid.ui.campus
 
 import android.Manifest
-import android.util.Log
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,15 +12,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusEvent
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
 import androidx.navigation.NavController
-import br.edu.ifsc.neabiAndroid.domain.model.Address
-import br.edu.ifsc.neabiAndroid.domain.model.Campus
-import br.edu.ifsc.neabiAndroid.domain.model.Institution
 import br.edu.ifsc.neabiAndroid.ui.campus.components.AddressInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.BoxInfo
 import br.edu.ifsc.neabiAndroid.ui.campus.components.CardItem
@@ -71,15 +62,17 @@ fun CampusView(
             BoxInfo("Cursos", campus.value.courses.size)
             BoxInfo("Programas", campus.value.program.size)
             BoxInfo("Projetos", campus.value.project.size)
-            BoxInfo("Ações Afirmativas", campus.value.affirmativeAction.size)
+            BoxInfo("Auxílio Estudantil", campus.value.studentAid.size)
         }
-
 
         ExpandableCard("Endereço") {
             AddressInfo(campus.value.address)
         }
 
         ExpandableCard("Cursos") {
+            if(campus.value.courses.isEmpty())
+                Text(text = "Nenhum Curso Cadastrado!")
+            else
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
                 for (course in campus.value.courses)
                     CardItem(name = course.course.name){
@@ -89,6 +82,9 @@ fun CampusView(
         }
 
         ExpandableCard("Programas") {
+            if(campus.value.program.isEmpty())
+                Text(text = "Nenhum Programa Cadastrado!")
+            else
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
                 for(program in campus.value.program)
                     CardItem(name = program.name){
@@ -98,6 +94,9 @@ fun CampusView(
         }
 
         ExpandableCard("Projetos") {
+            if(campus.value.project.isEmpty())
+                Text(text = "Nenhum Programa Cadastrado!")
+            else
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
                 for(proj in campus.value.project)
                     CardItem(name = proj.name){
@@ -105,9 +104,12 @@ fun CampusView(
                     }
             }
         }
-        ExpandableCard("Ações Afirmativas") {
+        ExpandableCard("Auxílio Estudantil") {
+            if(campus.value.studentAid.isEmpty())
+                Text(text = "Nenhum Auxílio Estudantil Cadastrado!")
+            else
             Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
-                for(action in campus.value.affirmativeAction)
+                for(action in campus.value.studentAid)
                     CardItem(name = action.name){
                         navController.navigate("home")
                     }
@@ -127,7 +129,6 @@ fun CampusView(
                 contentAlignment = Alignment.Center
             ) {
                 if(permissionState.hasPermission){
-
                     val mapCenter by campusViewModel.loc.observeAsState(initial = LatLng(-26.1833444,-50.3670326))
                     val cameraPositionState = rememberCameraPositionState {
                         position = CameraPosition.fromLatLngZoom(mapCenter, 6.0f)

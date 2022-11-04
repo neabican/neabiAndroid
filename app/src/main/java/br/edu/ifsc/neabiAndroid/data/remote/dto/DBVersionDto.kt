@@ -9,10 +9,3 @@ data class DBVersionDto(
     @Json(name = "versao")
     val version: Int
 )
-
-fun DBVersionDto.toDomain(): DBVersion{
-    return DBVersion(
-        pk = pk,
-        version = version
-    )
-}

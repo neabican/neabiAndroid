@@ -1,11 +1,10 @@
 package br.edu.ifsc.neabiAndroid.domain.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import br.edu.ifsc.neabiAndroid.data.local.daos.CampusDao
-import br.edu.ifsc.neabiAndroid.data.local.entities.toDomain
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
+import br.edu.ifsc.neabiAndroid.util.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -25,7 +24,7 @@ class CampusRepository(private val dao: CampusDao) {
                     courses = it.courses.toDomain(),
                     program = it.program.toDomain(),
                     project = it.project.toDomain(),
-                    affirmativeAction = it.affirmativeAction.toDomain()
+                    studentAid = it.studentAid.toDomain()
                 )
             }
         }

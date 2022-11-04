@@ -3,12 +3,10 @@ package br.edu.ifsc.neabiAndroid.data.local.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.ForeignKey.RESTRICT
 import androidx.room.PrimaryKey
-import br.edu.ifsc.neabiAndroid.domain.model.AffirmativeAction
 
 @Entity(
-    tableName = "affirmativeAction",
+    tableName = "studentAid",
     foreignKeys = [
         ForeignKey(
             entity = CampusEntity::class,
@@ -19,7 +17,7 @@ import br.edu.ifsc.neabiAndroid.domain.model.AffirmativeAction
         )
     ]
 )
-data class AffirmativeActionEntity(
+data class StudentAidEntity(
     @PrimaryKey
     val pk: Int,
     val name: String,
@@ -27,15 +25,3 @@ data class AffirmativeActionEntity(
     val link: String,
     val campusPk: Int
 )
-
-fun List<AffirmativeActionEntity>.toDomain(): List<AffirmativeAction>{
-    return map{
-        AffirmativeAction(
-            pk = it.pk,
-            name = it.name,
-            description = it.description,
-            link = it.link,
-            campus = it.campusPk
-        )
-    }
-}

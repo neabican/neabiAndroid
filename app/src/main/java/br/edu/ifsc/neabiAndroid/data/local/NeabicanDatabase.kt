@@ -11,8 +11,8 @@ import br.edu.ifsc.neabiAndroid.data.local.entities.*
 @Database(
     entities = [DBVersionEntity::class, InstitutionEntity::class, AddressEntity::class,
                 CourseEntity::class, CampusEntity::class, CoursesEntity::class,
-                ProgramEntity::class, ProjectEntity::class, AffirmativeActionEntity::class],
-    version = 2,
+                ProgramEntity::class, ProjectEntity::class, StudentAidEntity::class],
+    version = 3,
     exportSchema = false
 )
 abstract class NeabicanDatabase: RoomDatabase() {
@@ -24,8 +24,8 @@ abstract class NeabicanDatabase: RoomDatabase() {
     abstract fun campusDao(): CampusDao
     abstract fun coursesDao(): CoursesDao
     abstract fun programDao(): ProgramDao
-    abstract fun project(): ProjectDao
-    abstract fun affirmativeActionDao(): AffirmativeActionDao
+    abstract fun projectDao(): ProjectDao
+    abstract fun studentAidDao(): StudentAidDao
 
     companion object{
 

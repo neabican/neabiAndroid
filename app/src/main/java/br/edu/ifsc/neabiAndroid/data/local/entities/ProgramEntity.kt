@@ -25,15 +25,3 @@ data class ProgramEntity(
     val link: String,
     val campusPk: Int
 )
-
-fun List<ProgramEntity>.toDomain(): List<Program>{
-    return map{
-        Program(
-            pk = it.pk,
-            name = it.name,
-            description = it.description,
-            link = it.link,
-            campus = it.campusPk
-        )
-    }
-}

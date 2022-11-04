@@ -3,6 +3,7 @@ package br.edu.ifsc.neabiAndroid.data.local.entities
 import androidx.room.Embedded
 import androidx.room.Relation
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
+import br.edu.ifsc.neabiAndroid.util.toDomain
 
 data class AllCampusInfo(
     @Embedded val campus: CampusEntity,
@@ -36,20 +37,5 @@ data class AllCampusInfo(
         parentColumn = "pk",
         entityColumn = "campusPk"
     )
-    val affirmativeAction: List<AffirmativeActionEntity>
+    val studentAid: List<StudentAidEntity>
 )
-
-fun AllCampusInfo.toDomainCampus(): Campus{
-    return Campus(
-        pk = campus.pk,
-        name = campus.name,
-        image = campus.image,
-        link = campus.link,
-        institution = institution.toDomain(),
-        address = address.toDomain(),
-        courses = courses.toDomain(),
-        program = program.toDomain(),
-        project = project.toDomain(),
-        affirmativeAction = affirmativeAction.toDomain()
-    )
-}
