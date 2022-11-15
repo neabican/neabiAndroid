@@ -2,8 +2,6 @@ package br.edu.ifsc.neabiAndroid.data.local.entities
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import br.edu.ifsc.neabiAndroid.domain.model.Campus
-import br.edu.ifsc.neabiAndroid.util.toDomain
 
 data class AllCampusInfo(
     @Embedded val campus: CampusEntity,
@@ -37,5 +35,5 @@ data class AllCampusInfo(
         parentColumn = "pk",
         entityColumn = "campusPk"
     )
-    val studentAid: List<StudentAidEntity>
+    val studentAid: List<StudentAssistanceEntity>
 )

@@ -62,59 +62,52 @@ fun CampusView(
             BoxInfo("Cursos", campus.value.courses.size)
             BoxInfo("Programas", campus.value.program.size)
             BoxInfo("Projetos", campus.value.project.size)
-            BoxInfo("Auxílio Estudantil", campus.value.studentAid.size)
+            BoxInfo("Auxílio Estudantil", campus.value.studentAssistence.size)
         }
 
         ExpandableCard("Endereço") {
             AddressInfo(campus.value.address)
         }
 
-        ExpandableCard("Cursos") {
-            if(campus.value.courses.isEmpty())
-                Text(text = "Nenhum Curso Cadastrado!")
-            else
-            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
-                for (course in campus.value.courses)
-                    CardItem(name = course.course.name){
-                        navController.navigate("course/${course.pk}")
-                    }
+        if(campus.value.courses.isNotEmpty())
+            ExpandableCard("Cursos") {
+                Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                    for (course in campus.value.courses)
+                        CardItem(name = course.course.name){
+                            navController.navigate("course/${course.pk}")
+                        }
+                }
             }
-        }
 
-        ExpandableCard("Programas") {
-            if(campus.value.program.isEmpty())
-                Text(text = "Nenhum Programa Cadastrado!")
-            else
-            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
-                for(program in campus.value.program)
-                    CardItem(name = program.name){
-                        navController.navigate("home")
-                    }
+        if(campus.value.program.isNotEmpty())
+            ExpandableCard("Programas") {
+                Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                    for(program in campus.value.program)
+                        CardItem(name = program.name){
+                            navController.navigate("home")
+                        }
+                }
             }
-        }
 
-        ExpandableCard("Projetos") {
-            if(campus.value.project.isEmpty())
-                Text(text = "Nenhum Programa Cadastrado!")
-            else
-            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
-                for(proj in campus.value.project)
-                    CardItem(name = proj.name){
-                        navController.navigate("home")
-                    }
+        if(campus.value.project.isNotEmpty())
+            ExpandableCard("Projetos") {
+                Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                    for(proj in campus.value.project)
+                        CardItem(name = proj.name){
+                            navController.navigate("home")
+                        }
+                }
             }
-        }
-        ExpandableCard("Auxílio Estudantil") {
-            if(campus.value.studentAid.isEmpty())
-                Text(text = "Nenhum Auxílio Estudantil Cadastrado!")
-            else
-            Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
-                for(action in campus.value.studentAid)
-                    CardItem(name = action.name){
-                        navController.navigate("home")
-                    }
+
+        if(campus.value.studentAssistence.isNotEmpty())
+            ExpandableCard("Assistência Estudantil") {
+                Column(verticalArrangement = Arrangement.spacedBy(sizeMedium)) {
+                    for(action in campus.value.studentAssistence)
+                        CardItem(name = action.name){
+                            navController.navigate("home")
+                        }
+                }
             }
-        }
 
         Row(
             modifier = Modifier

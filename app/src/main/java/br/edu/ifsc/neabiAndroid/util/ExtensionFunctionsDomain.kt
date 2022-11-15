@@ -31,7 +31,7 @@ fun AllCampusInfo.toDomain(): Campus {
         courses = courses.toDomain(),
         program = program.toDomain(),
         project = project.toDomain(),
-        studentAid = studentAid.toDomain()
+        studentAssistence = studentAid.toDomain()
     )
 }
 
@@ -109,9 +109,9 @@ fun List<ProjectEntity>.toDomain(): List<Project>{
 }
 
 @JvmName("toDomainStudentAidEntity")
-fun List<StudentAidEntity>.toDomain(): List<StudentAid>{
+fun List<StudentAssistanceEntity>.toDomain(): List<StudentAssistence>{
     return map{
-        StudentAid(
+        StudentAssistence(
             pk = it.pk,
             name = it.name,
             description = it.description,

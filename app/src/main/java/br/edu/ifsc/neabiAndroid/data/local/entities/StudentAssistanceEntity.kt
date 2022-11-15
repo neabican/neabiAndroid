@@ -6,7 +6,7 @@ import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "studentAid",
+    tableName = "studentAssistance",
     foreignKeys = [
         ForeignKey(
             entity = CampusEntity::class,
@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class StudentAidEntity(
+data class StudentAssistanceEntity(
     @PrimaryKey
     val pk: Int,
     val name: String,

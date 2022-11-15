@@ -25,7 +25,7 @@ class CampusRepository(private val dao: CampusDao) {
                     courses = it.courses.toDomain(),
                     program = it.program.toDomain(),
                     project = it.project.toDomain(),
-                    studentAid = it.studentAid.toDomain()
+                    studentAssistence = it.studentAid.toDomain()
                 )
             }
         }

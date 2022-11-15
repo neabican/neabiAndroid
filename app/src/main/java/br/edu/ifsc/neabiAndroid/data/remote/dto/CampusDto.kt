@@ -33,7 +33,7 @@ data class CampusDto(
     val projectDto: List<ProjectDto> = listOf(),
 
     @Json(name = "acoes_afirmativas")
-    val studentAidDto: List<StudentAidDto> = listOf(),
+    val studentAssistanceDto: List<StudentAssistanceDto> = listOf(),
 ){
     fun toEntity(): CampusEntity {
         return CampusEntity(

@@ -11,5 +11,5 @@ data class Campus(
     val courses: List<Courses> = listOf(),
     val program: List<Program> = listOf(),
     val project: List<Project> = listOf(),
-    val studentAid: List<StudentAid> = listOf(),
+    val studentAssistence: List<StudentAssistence> = listOf(),
 )

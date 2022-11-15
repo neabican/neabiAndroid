@@ -38,7 +38,7 @@ class InitializationRepository(private val db: NeabicanDatabase) {
         try {
             db.addressDao().clearTable()
             Log.d("debug", "-> Clear Table Address!")
-            db.studentAidDao().clearTable()
+            db.studentAssistanceDao().clearTable()
             Log.d("debug", "-> Clear Table AddirmativeAction!")
             db.campusDao().clearTable()
             Log.d("debug", "-> Clear Table Campus!")
@@ -87,7 +87,7 @@ class InitializationRepository(private val db: NeabicanDatabase) {
                 Log.d("debug", "-> Campus insertion done!")
                 db.programDao().insertAllProgram(mapper.program)
                 Log.d("debug", "-> Program insertion done!")
-                db.studentAidDao().insertAllStudentAid(mapper.affirmativeAction)
+                db.studentAssistanceDao().insertAllStudentAid(mapper.affirmativeAction)
                 Log.d("debug", "-> Affirmative Action insertion done!")
                 db.coursesDao().insertAllCourses(mapper.courses)
                 Log.d("debug", "-> Institution insertion done!")

@@ -1,9 +1,9 @@
 package br.edu.ifsc.neabiAndroid.data.remote.dto
 
-import br.edu.ifsc.neabiAndroid.data.local.entities.StudentAidEntity
+import br.edu.ifsc.neabiAndroid.data.local.entities.StudentAssistanceEntity
 import com.squareup.moshi.Json
 
-data class StudentAidDto(
+data class StudentAssistanceDto(
     val pk: Int,
 
     @Json(name = "nome")
@@ -15,8 +15,8 @@ data class StudentAidDto(
     val link: String = "",
     val campus: Int
 ){
-    fun toEntity(): StudentAidEntity{
-        return StudentAidEntity(
+    fun toEntity(): StudentAssistanceEntity{
+        return StudentAssistanceEntity(
             pk = pk,
             name = name,
             description = description,

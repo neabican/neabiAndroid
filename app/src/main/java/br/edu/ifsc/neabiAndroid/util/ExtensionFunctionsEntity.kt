@@ -2,10 +2,10 @@ package br.edu.ifsc.neabiAndroid.util
 
 import br.edu.ifsc.neabiAndroid.data.local.entities.CoursesEntity
 import br.edu.ifsc.neabiAndroid.data.local.entities.ProgramEntity
-import br.edu.ifsc.neabiAndroid.data.local.entities.StudentAidEntity
+import br.edu.ifsc.neabiAndroid.data.local.entities.StudentAssistanceEntity
 import br.edu.ifsc.neabiAndroid.data.remote.dto.CoursesDto
 import br.edu.ifsc.neabiAndroid.data.remote.dto.ProgramDto
-import br.edu.ifsc.neabiAndroid.data.remote.dto.StudentAidDto
+import br.edu.ifsc.neabiAndroid.data.remote.dto.StudentAssistanceDto
 
 fun List<CoursesDto>.toEntity(campusPk: Int): List<CoursesEntity>{
     return map{
@@ -21,9 +21,9 @@ fun List<CoursesDto>.toEntity(campusPk: Int): List<CoursesEntity>{
 }
 
 @JvmName("toEntityStudentAidDto")
-fun List<StudentAidDto>.toEntity(): List<StudentAidEntity>{
+fun List<StudentAssistanceDto>.toEntity(): List<StudentAssistanceEntity>{
     return map{
-        StudentAidEntity(
+        StudentAssistanceEntity(
             pk = it.pk,
             name = it.name,
             description = it.description,

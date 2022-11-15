@@ -1,6 +1,6 @@
 package br.edu.ifsc.neabiAndroid.domain.model
 
-data class StudentAid(
+data class StudentAssistence(
     val pk: Int,
     val name: String,
     val description: String,
