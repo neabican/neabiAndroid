@@ -1,7 +1,6 @@
 package br.edu.ifsc.neabiAndroid.ui.course.detail
 
 import androidx.lifecycle.*
-import br.edu.ifsc.neabiAndroid.domain.model.Course
 import br.edu.ifsc.neabiAndroid.domain.model.Courses
 import br.edu.ifsc.neabiAndroid.domain.repository.CoursesRepository
 import br.edu.ifsc.neabiAndroid.util.EmptyClass

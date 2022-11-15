@@ -1,4 +1,4 @@
-package br.edu.ifsc.neabiAndroid.ui.sharedcomp
+package br.edu.ifsc.neabiAndroid.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

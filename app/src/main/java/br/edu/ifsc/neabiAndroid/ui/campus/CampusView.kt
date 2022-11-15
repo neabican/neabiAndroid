@@ -16,10 +16,10 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
 import androidx.navigation.NavController
-import br.edu.ifsc.neabiAndroid.ui.campus.components.AddressInfo
-import br.edu.ifsc.neabiAndroid.ui.campus.components.BoxInfo
-import br.edu.ifsc.neabiAndroid.ui.campus.components.CardItem
-import br.edu.ifsc.neabiAndroid.ui.campus.components.ExpandableCard
+import br.edu.ifsc.neabiAndroid.ui.components.AddressInfo
+import br.edu.ifsc.neabiAndroid.ui.components.BoxInfo
+import br.edu.ifsc.neabiAndroid.ui.components.CardItem
+import br.edu.ifsc.neabiAndroid.ui.components.ExpandableCard
 import br.edu.ifsc.neabiAndroid.ui.theme.PrimaryColor
 import br.edu.ifsc.neabiAndroid.util.EmptyClass
 import br.edu.ifsc.neabiAndroid.util.sizeExtraLarge

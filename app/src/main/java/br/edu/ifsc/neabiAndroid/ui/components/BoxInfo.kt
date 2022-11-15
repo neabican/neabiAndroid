@@ -1,4 +1,4 @@
-package br.edu.ifsc.neabiAndroid.ui.campus.components
+package br.edu.ifsc.neabiAndroid.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
