@@ -1,5 +1,6 @@
 package br.edu.ifsc.neabiAndroid.ui.home.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -8,11 +9,15 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.edu.ifsc.neabiAndroid.data.remote.BaseURL.BASE_URL
 import androidx.navigation.NavController
+import br.edu.ifsc.neabiAndroid.R
 import br.edu.ifsc.neabiAndroid.domain.model.Campus
 import br.edu.ifsc.neabiAndroid.util.sizeLarge
 import br.edu.ifsc.neabiAndroid.util.sizeMedium
@@ -47,15 +52,16 @@ fun CampusCard(navController: NavController, campus: Campus) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                if(campus.image.isBlank())
+                    Image(painter = painterResource(id = R.drawable.template),
+                        contentDescription = "Imagem genérica")
+                else
                 SubcomposeAsyncImage(
-                    model = if(campus.image.isNotBlank())
-                                BASE_URL+campus.image
-                            else
-                                "https://via.placeholder.com/1100x500",
+                    model = BASE_URL+campus.image,
                     loading = {
                         CircularProgressIndicator(modifier = Modifier.padding(70.dp))
                     },
-                    contentDescription = "image",
+                    contentDescription = "Imagem Câmpus",
                 )
                 Button(
                     onClick = {
@@ -74,6 +80,5 @@ fun CampusCard(navController: NavController, campus: Campus) {
                 }
             }
         }
-
     }
 }

@@ -1,6 +1,7 @@
 package br.edu.ifsc.neabiAndroid.ui.campus
 
 import android.Manifest
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
 import androidx.navigation.NavController
+import br.edu.ifsc.neabiAndroid.R
 import br.edu.ifsc.neabiAndroid.ui.components.AddressInfo
 import br.edu.ifsc.neabiAndroid.ui.components.BoxInfo
 import br.edu.ifsc.neabiAndroid.ui.components.CardItem
@@ -47,6 +50,10 @@ fun CampusView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(sizeExtraLarge)
     ) {
+        if(campus.value.image.isBlank())
+            Image(painter = painterResource(id = R.drawable.template),
+                contentDescription = "Imagem genérica do Campus")
+        else
         SubcomposeAsyncImage(
             model = BASE_URL+ campus.value.image,
             loading = {

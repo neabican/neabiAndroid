@@ -5,7 +5,6 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -56,7 +55,7 @@ fun CourseView(
             )
 
             AndroidView(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(0.dp),
                 factory = { context -> TextView(context) },
                 update = { it.text = HtmlCompat.fromHtml(course.value?.course?.description?:"", HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST) }
             )
@@ -91,7 +90,7 @@ fun CourseView(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = sizeLarge, end = sizeLarge)
+                    .padding(start = sizeLarge, end = sizeLarge, bottom = sizeLarge)
                     .background(color = PrimaryColor, shape = RoundedCornerShape(sizeMedium)),
                 shape = RoundedCornerShape(sizeMedium),
                 onClick = { uriHandler.openUri(course.value?.link?:"") }
