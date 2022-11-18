@@ -87,11 +87,11 @@ fun HomeView(
                     modifier = Modifier.fillMaxSize(),
                     cameraPositionState = cameraPositionState,
                     properties = MapProperties(
-                        isMyLocationEnabled = true
+                        isMyLocationEnabled = permissionState.hasPermission
                     ),
                     uiSettings = MapUiSettings(
                         compassEnabled = true,
-                        myLocationButtonEnabled = true
+                        myLocationButtonEnabled = permissionState.hasPermission
                     )
                 ) {
                     campusList.forEach { campus ->
@@ -108,21 +108,20 @@ fun HomeView(
                 }
             }
 
-            if (permissionState.hasPermission)
-                FloatingActionButton(
-                    modifier = Modifier
-                        .padding(all = 16.dp)
-                        .align(alignment = Alignment.BottomStart)
-                        .scale(1.05f),
-                    onClick = { fabState = !fabState },
-                    backgroundColor = MaterialTheme.colors.primary,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.LocationOn,
-                        tint = Color.White,
-                        contentDescription = "Abrir Mapa"
-                    )
-                }
+            FloatingActionButton(
+                modifier = Modifier
+                    .padding(all = 16.dp)
+                    .align(alignment = Alignment.BottomStart)
+                    .scale(1.05f),
+                onClick = { fabState = !fabState },
+                backgroundColor = MaterialTheme.colors.primary,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.LocationOn,
+                    tint = Color.White,
+                    contentDescription = "Abrir Mapa"
+                )
+            }
         }
     }
 }
