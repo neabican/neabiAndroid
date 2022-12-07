@@ -9,12 +9,6 @@ object Items {
 
     val menuItems = listOf(
         MenuItem(
-            id = "Home",
-            title = "Home",
-            contentDescription = "Botão Home",
-            icon = Icons.Default.Home,
-        ),
-        MenuItem(
             id = "Campus",
             title = "Câmpus",
             contentDescription = "Botão Câmpus",

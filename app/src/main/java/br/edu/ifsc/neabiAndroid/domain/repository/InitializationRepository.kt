@@ -1,14 +1,19 @@
 package br.edu.ifsc.neabiAndroid.domain.repository
 
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import br.edu.ifsc.neabiAndroid.data.local.NeabicanDatabase
 import br.edu.ifsc.neabiAndroid.data.remote.NeabicanApi
 import br.edu.ifsc.neabiAndroid.util.DBMapper
 import br.edu.ifsc.neabiAndroid.util.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
-class InitializationRepository(private val db: NeabicanDatabase) {
+class InitializationRepository(private val db: NeabicanDatabase, private val connectivityManager: ConnectivityManager?) {
 
     suspend fun getLocalVersion(): Int{
         var version = -2
@@ -22,12 +27,11 @@ class InitializationRepository(private val db: NeabicanDatabase) {
 
     suspend fun getApiVersion(): Int{
         Log.d("debug", "Collecting the DB version from API!")
-
-        var version = -1
+        var version = if (hasInternet()) -1 else -2
         withContext(Dispatchers.IO){
             try {
                 version = NeabicanApi.retrofitService.getDatabaseVersion().toDomain().version
-            }catch (e: Exception){
+            }catch (e: Exception) {
                 Log.e("api", "Ocorreu um erro aco acessar API: "+e.message)
             }
         }
@@ -63,10 +67,10 @@ class InitializationRepository(private val db: NeabicanDatabase) {
 
         withContext(Dispatchers.IO){
             clearDataBase()
-            var mapper = DBMapper()
+            val mapper = DBMapper()
             try{
                 Log.d("debug", "-> Getting data from the API")
-                var aux = NeabicanApi.retrofitService.getInitialData()
+                val aux = NeabicanApi.retrofitService.getInitialData()
 
                 Log.d("debug", "-> Starting the data map!")
                 mapper.cast(aux)
@@ -100,5 +104,22 @@ class InitializationRepository(private val db: NeabicanDatabase) {
         }
         Log.d("debug", "DataBase insertion Completed")
         return true
+    }
+
+    private fun hasInternet():Boolean{
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager?.activeNetwork ?: return false
+            val capabilities = connectivityManager.getNetworkCapabilities(network)?:return false
+            return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                    || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+        } else {
+            val activateNetworkInfo = connectivityManager?.activeNetworkInfo
+            if(activateNetworkInfo!=null){
+                return activateNetworkInfo.type == ConnectivityManager.TYPE_WIFI
+                        || activateNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
+            }
+            false
+        }
     }
 }

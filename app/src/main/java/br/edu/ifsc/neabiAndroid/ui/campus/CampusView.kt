@@ -51,16 +51,16 @@ fun CampusView(
         verticalArrangement = Arrangement.spacedBy(sizeExtraLarge)
     ) {
         if(campus.value.image.isBlank())
-            Image(painter = painterResource(id = R.drawable.template),
+            Image(painter = painterResource(id = R.drawable.default_campus_image),
                 contentDescription = "Imagem genérica do Campus")
         else
-        SubcomposeAsyncImage(
-            model = BASE_URL+ campus.value.image,
-            loading = {
-                CircularProgressIndicator()
-            },
-            contentDescription = "image",
-        )
+            SubcomposeAsyncImage(
+                model = BASE_URL+ campus.value.image,
+                loading = {
+                    CircularProgressIndicator()
+                },
+                contentDescription = "image",
+            )
 
         Row(
             modifier = Modifier.fillMaxWidth(),

@@ -23,6 +23,7 @@ class SplashViewModel(private val repository: InitializationRepository): ViewMod
                 _isLoading.value=false
                 return@launch
             }
+
             val update = refreshDataBaseFromAPI()
             joinAll(update)
             _isLoading.value=false

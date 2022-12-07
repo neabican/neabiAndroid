@@ -9,8 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -53,16 +51,16 @@ fun CampusCard(navController: NavController, campus: Campus) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if(campus.image.isBlank())
-                    Image(painter = painterResource(id = R.drawable.template),
+                    Image(painter = painterResource(id = R.drawable.default_campus_image),
                         contentDescription = "Imagem genérica")
                 else
-                SubcomposeAsyncImage(
-                    model = BASE_URL+campus.image,
-                    loading = {
-                        CircularProgressIndicator(modifier = Modifier.padding(70.dp))
-                    },
-                    contentDescription = "Imagem Câmpus",
-                )
+                    SubcomposeAsyncImage(
+                        model = BASE_URL+campus.image,
+                        loading = {
+                            CircularProgressIndicator(modifier = Modifier.padding(70.dp))
+                        },
+                        contentDescription = "Imagem Câmpus",
+                    )
                 Button(
                     onClick = {
                         navController.navigate("campus/${campus.pk}")

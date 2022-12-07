@@ -99,7 +99,7 @@ fun HomeView(
                             position = LatLng(campus.address.latitude.toDouble(), campus.address.longitude.toDouble()),
                             title = campus.institution.initials,
                             snippet = campus.name,
-                            onInfoWindowClick = {
+                            onInfoWindowLongClick = {
                                 navController.navigate("campus/${campus.pk}")
                             }
                         )

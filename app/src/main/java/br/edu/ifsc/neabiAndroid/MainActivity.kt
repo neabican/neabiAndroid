@@ -124,9 +124,6 @@ fun NeabicanApp(
                     modifier = Modifier,
                     onItemClick = {
                         when(it.id){
-                            "Home" -> {
-                                navController.navigate("home")
-                            }
                             "Campus" -> {
                                 navController.navigate("home")
                             }
