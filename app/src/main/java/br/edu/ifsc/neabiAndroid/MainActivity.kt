@@ -42,31 +42,31 @@ class MainActivity : ComponentActivity() {
 
         val splashViewModel by viewModels<SplashViewModel>(){
             SplashVMFactory(
-                (this.applicationContext as NeabiCanApplication).initialRepository
+                (this.applicationContext as NeabiAndroid).initialRepository
             )
         }
 
         val homeViewModel by viewModels<HomeViewModel>(){
             HomeVMFactory(
-                (this.applicationContext as NeabiCanApplication).homeRepository
+                (this.applicationContext as NeabiAndroid).homeRepository
             )
         }
 
         val campusViewModel by viewModels<CampusViewModel>() {
             CampusVMFactory(
-                (this.applicationContext as NeabiCanApplication).campusRepository
+                (this.applicationContext as NeabiAndroid).campusRepository
             )
         }
 
         val coursesViewModel by viewModels<CoursesViewModel>(){
             CoursesVMFactory(
-                (this.applicationContext as NeabiCanApplication).coursesRepository
+                (this.applicationContext as NeabiAndroid).coursesRepository
             )
         }
 
         val courseViewModel by viewModels<CourseListViewModel>(){
             CourseVMFactory(
-                (this.applicationContext as NeabiCanApplication).courseRepository
+                (this.applicationContext as NeabiAndroid).courseRepository
             )
         }
 

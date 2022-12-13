@@ -5,12 +5,11 @@ import android.net.ConnectivityManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import br.edu.ifsc.neabiAndroid.data.local.NeabicanDatabase
 import br.edu.ifsc.neabiAndroid.domain.repository.*
 
 @RequiresApi(Build.VERSION_CODES.M)
-class NeabiCanApplication: Application() {
+class NeabiAndroid: Application() {
     val neabicanDatabase: NeabicanDatabase by lazy{
         NeabicanDatabase.getInstance(this)
     }
