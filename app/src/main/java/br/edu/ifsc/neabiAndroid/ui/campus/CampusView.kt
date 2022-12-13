@@ -129,7 +129,7 @@ fun CampusView(
                 contentAlignment = Alignment.Center
             ) {
                 if(permissionState.hasPermission){
-                    val mapCenter by campusViewModel.loc.observeAsState(initial = LatLng(-26.1833444,-50.3670326))
+                    val mapCenter by campusViewModel.loc.collectAsState(initial = LatLng(-26.1833444,-50.3670326))
                     val cameraPositionState = rememberCameraPositionState {
                         position = CameraPosition.fromLatLngZoom(mapCenter, 6.0f)
                     }

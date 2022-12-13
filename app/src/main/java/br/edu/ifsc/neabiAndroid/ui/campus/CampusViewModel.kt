@@ -15,15 +15,8 @@ class CampusViewModel(private val rep: CampusRepository): ViewModel() {
     val campus: LiveData<Campus>
         get() = _campus
 
-    val loc: LiveData<LatLng>
-        get() {
-            return MutableLiveData(
-                LatLng(
-                _campus.value?.address?.latitude?.toDouble()?:0.0,
-                _campus.value?.address?.longitude?.toDouble()?:0.0
-                )
-            )
-        }
+    private val _loc: LiveData<LatLng> = MutableLiveData()
+    val loc = _loc.asFlow()
 
     fun setCampus(int: Int){
         viewModelScope.launch {
