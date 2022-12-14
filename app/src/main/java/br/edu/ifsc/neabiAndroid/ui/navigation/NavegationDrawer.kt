@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -22,7 +24,13 @@ fun DrawerAppBar(
     onNavigationIconClick: () -> Unit
 ) {
     TopAppBar(
-        title = { Text("Sistema Educacional") },
+        title = {
+            Text(
+                text = "Aquilombar",
+                fontWeight = FontWeight.Bold,
+                fontSize = 27.sp,
+            )
+        },
         navigationIcon = {
             IconButton(onClick = onNavigationIconClick) {
                 Icon(Icons.Filled.Menu, contentDescription = "Menu")
