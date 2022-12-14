@@ -17,9 +17,7 @@ import androidx.navigation.navArgument
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusVMFactory
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusView
 import br.edu.ifsc.neabiAndroid.ui.campus.CampusViewModel
-import br.edu.ifsc.neabiAndroid.ui.course.detail.CourseView
-import br.edu.ifsc.neabiAndroid.ui.course.detail.CoursesVMFactory
-import br.edu.ifsc.neabiAndroid.ui.course.detail.CoursesViewModel
+import br.edu.ifsc.neabiAndroid.ui.course.detail.*
 import br.edu.ifsc.neabiAndroid.ui.course.list.CourseListScreen
 import br.edu.ifsc.neabiAndroid.ui.course.list.CourseListViewModel
 import br.edu.ifsc.neabiAndroid.ui.course.list.CourseVMFactory
@@ -70,6 +68,12 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val courseCampusViewModel by viewModels<CourseCampusViewModel>(){
+            CourseCampusVMFactory(
+                (this.applicationContext as NeabiAndroid).courseRepository
+            )
+        }
+
         setContent {
             NeabiAndroidTheme {
                 Surface(
@@ -81,7 +85,8 @@ class MainActivity : ComponentActivity() {
                         homeViewModel,
                         campusViewModel,
                         coursesViewModel,
-                        courseViewModel
+                        courseViewModel,
+                        courseCampusViewModel
                     )
                 }
             }
@@ -95,7 +100,8 @@ fun NeabicanApp(
     homeViewModel: HomeViewModel,
     campusViewModel: CampusViewModel,
     coursesViewModel: CoursesViewModel,
-    courseViewModel: CourseListViewModel
+    courseViewModel: CourseListViewModel,
+    courseCampusViewModel: CourseCampusViewModel
 ) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -169,6 +175,16 @@ fun NeabicanApp(
                 }
                 composable(route = "course"){
                     CourseListScreen(navController, courseViewModel)
+                }
+                composable(
+                    route = "courseCampus/{courseId}",
+                    arguments = listOf(
+                        navArgument("courseId"){
+                            defaultValue = -1
+                            type = NavType.IntType
+                        })
+                ) {
+                    CourseCampusView(courseCampusViewModel, navController)
                 }
             }
 
