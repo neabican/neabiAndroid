@@ -16,10 +16,8 @@ import retrofit2.http.GET
 //Ex: https://neabican.pythonanywhere.com/media/fotos_campus/campus-canoinhas.jpg
 
 object BaseURL{
-    const val BASE_URL = "https://neabican.pythonanywhere.com"
-
+    const val BASE_URL = "https://www.aquilombar.app.br"
 }
-const val BASE_URL = "https://neabican.pythonanywhere.com"
 
 private val moshi = Moshi.Builder()
     .add(Adapter.NULL_TO_EMPTY_STRING_ADAPTER)
@@ -28,7 +26,7 @@ private val moshi = Moshi.Builder()
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
+    .baseUrl(BaseURL.BASE_URL)
     .build()
 
 interface NeabicanApiService{

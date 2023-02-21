@@ -16,7 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import br.edu.ifsc.neabiAndroid.data.remote.BASE_URL
+import br.edu.ifsc.neabiAndroid.data.remote.BaseURL.BASE_URL
 import androidx.navigation.NavController
 import br.edu.ifsc.neabiAndroid.R
 import br.edu.ifsc.neabiAndroid.ui.components.AddressInfo
