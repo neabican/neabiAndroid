@@ -14,4 +14,8 @@ class CourseRepository (private val dao: CourseDao){
            emit(courses)
        }
     }
+
+    suspend fun getCourse(pk: Int): Course{
+        return dao.getCourse(pk).toDomain()
+    }
 }

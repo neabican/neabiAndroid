@@ -10,6 +10,10 @@ import kotlinx.coroutines.withContext
 
 class CoursesRepository(private val dao: CoursesDao){
 
+    suspend fun getCampusPkByCampusPk(pk: Int): List<Int>{
+        return dao.getCampusIdByCoursePk(pk)
+    }
+
     suspend fun getCourseUnion(coursesPk: Int): LiveData<Courses>{
         var course: LiveData<Courses>
         withContext(Dispatchers.Default){

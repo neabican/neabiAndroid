@@ -4,6 +4,24 @@ import br.edu.ifsc.neabiAndroid.domain.model.*
 
 object EmptyClass {
 
+    val emptyInstitution = Institution(
+        pk = -1,
+        name = "",
+        initials = "",
+        listOf()
+    )
+
+    val emptyAddress = Address(
+        pk = -1,
+        city = "",
+        state = "",
+        number = "",
+        public_place = "",
+        zip_code = "",
+        latitude = "",
+        longitude = ""
+    )
+
     val emptyCourse = Courses(
         -1,
         "",

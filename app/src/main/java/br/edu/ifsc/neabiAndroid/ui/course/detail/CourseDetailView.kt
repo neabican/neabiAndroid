@@ -36,7 +36,7 @@ fun CourseView(
                 .fillMaxSize()
                 .heightIn(min = maxHeight)
                 .verticalScroll(rememberScrollState())
-                .background(if (isSystemInDarkTheme()) Color.Gray else Color.White)
+                .background(if (isSystemInDarkTheme()) Color.LightGray else Color.White)
                 .padding(
                     start = sizeLarge,
                     end = sizeLarge,
@@ -55,9 +55,16 @@ fun CourseView(
             )
 
             AndroidView(
-                modifier = Modifier.fillMaxWidth().padding(0.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp),
                 factory = { context -> TextView(context) },
-                update = { it.text = HtmlCompat.fromHtml(course.value?.course?.description?:"", HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST) }
+                update = {
+                    it.text = HtmlCompat.fromHtml(
+                        course.value?.course?.description ?:"",
+                        HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST
+                    )
+                }
             )
 
             if((course.value?.vacancies ?: 0) > 0)

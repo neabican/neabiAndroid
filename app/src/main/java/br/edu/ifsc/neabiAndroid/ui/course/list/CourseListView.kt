@@ -1,5 +1,6 @@
 package br.edu.ifsc.neabiAndroid.ui.course.list
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -50,7 +51,7 @@ fun CourseListScreen(
             }
             items(courses.sortedBy { it.name }){
                 SimpleCardItem(course = it){
-
+                    navController.navigate("courseDetail/$it")
                 }
             }
         }
@@ -66,7 +67,7 @@ fun SimpleCardItem(
         modifier = Modifier
             .padding(sizeSmall)
             .fillMaxWidth()
-            .clickable { onCardClicked },
+            .clickable{ onCardClicked(course.pk.toString()) },
         elevation = sizeSmall,
         shape = RoundedCornerShape(sizeLarge)
     ){

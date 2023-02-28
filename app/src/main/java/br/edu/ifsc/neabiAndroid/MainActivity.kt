@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -70,7 +69,9 @@ class MainActivity : ComponentActivity() {
 
         val courseCampusViewModel by viewModels<CourseCampusViewModel>(){
             CourseCampusVMFactory(
-                (this.applicationContext as NeabiAndroid).courseRepository
+                (this.applicationContext as NeabiAndroid).courseRepository,
+                (this.applicationContext as NeabiAndroid).coursesRepository,
+                (this.applicationContext as NeabiAndroid).campusRepository
             )
         }
 
@@ -106,7 +107,7 @@ fun NeabicanApp(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val loading = splashViewModel.isLoading.collectAsState()
-    val navController: NavHostController = rememberNavController()
+    val navController = rememberNavController()
 
     if(loading.value){
         SplashScreen(viewModel = splashViewModel)
@@ -185,6 +186,21 @@ fun NeabicanApp(
                         })
                 ) {
                     CourseCampusView(courseCampusViewModel, navController)
+                }
+                composable(
+                    route = "courseDetail/{courseId}",
+                    arguments = listOf(
+                        navArgument("courseId"){
+                            defaultValue = -1
+                            type = NavType.IntType
+                        }
+                    )
+                ){
+                    courseCampusViewModel.updateUiState(it.arguments?.getInt("courseId")?:-1)
+                    CourseCampusView(
+                        viewModel = courseCampusViewModel,
+                        navController = navController
+                    )
                 }
             }
 

@@ -16,6 +16,9 @@ interface CampusDao {
     @Query("SELECT * FROM campus")
     suspend fun getAllCampus(): List<CampusEntity>
 
+    @Query("SELECT * FROM campus WHERE pk IN (:list)")
+    suspend fun getCampusByPk(list: List<Int>): List<CampusEntity>
+
     @Query("DELETE FROM campus")
     suspend fun clearTable()
 
