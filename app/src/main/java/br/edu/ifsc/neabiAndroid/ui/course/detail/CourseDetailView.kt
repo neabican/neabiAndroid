@@ -67,7 +67,7 @@ fun CourseView(
                 }
             )
 
-            if((course.value?.vacancies ?: 0) > 0)
+            /*if((course.value?.vacancies ?: 0) > 0)
                 ExpandableCard(title = "Vagas", cardPadding = 0.dp) {
                     Column {
                         Divider()
@@ -91,7 +91,7 @@ fun CourseView(
                         Text(text = "Preto | Pardo | Indígena com deficiência: ${course.value?.RIPPIPCD()}")
                         Text(text = "Não Preto | Pardo | Indígena: ${course.value?.RINPPIPCD()}")
                     }
-                }
+                }*/
 
             val uriHandler = LocalUriHandler.current
             Button(

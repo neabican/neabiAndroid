@@ -1,40 +1,38 @@
 package br.edu.ifsc.neabiAndroid.ui.splash
 
-import android.util.Log
 import android.view.animation.OvershootInterpolator
-import android.window.SplashScreen
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import br.edu.ifsc.neabiAndroid.MainActivity
 import br.edu.ifsc.neabiAndroid.R
-import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
     viewModel: SplashViewModel
-){
+) {
     val loading = viewModel.isLoading.collectAsState(initial = true)
-    val scale = remember{
+    val scale = remember {
         Animatable(0f)
     }
 
-    LaunchedEffect(key1 = true){
+    LaunchedEffect(key1 = true) {
         scale.animateTo(
             targetValue = 0.9f,
             animationSpec = tween(
@@ -52,9 +50,9 @@ fun SplashScreen(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
-        ){
+        ) {
             Image(
-                painter = painterResource(id = R.drawable.splash_icon),
+                painter = painterResource(id = R.drawable.logo_marca),
                 contentDescription = "Logo",
                 modifier = Modifier
                     .size(300.dp)
@@ -63,11 +61,13 @@ fun SplashScreen(
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(top = 50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 50.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            if(loading.value){
-                CircularProgressIndicator(color = Color(0xff3DB41C))
+            if (loading.value) {
+                CircularProgressIndicator(color = Color(0xFF006A66))
             }
         }
     }
