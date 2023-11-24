@@ -17,7 +17,6 @@ class CampusRepository(private val dao: CampusDao) {
             Campus(
                 pk = it.pk,
                 name = it.name,
-                image = it.image,
                 link = it.link,
                 description = it.description,
                 address = EmptyClass.emptyAddress,
@@ -33,12 +32,12 @@ class CampusRepository(private val dao: CampusDao) {
                 Campus(
                     pk = it.campus.pk,
                     name = it.campus.name,
-                    image = it.campus.image,
                     link = it.campus.link,
                     institution = it.institution.toDomain(),
                     address = it.address.toDomain(),
                     description = it.campus.description,
                     courses = it.courses.toDomain(),
+                    image = it.image.toDomain(it.campus.pk),
                     program = it.program.toDomain(),
                     project = it.project.toDomain(),
                     studentAssistence = it.studentAid.toDomain()

@@ -17,7 +17,6 @@ class HomeRepository(private val dao: CampusDao) {
                     Campus(
                         pk = it.campusEntity.pk,
                         name = it.campusEntity.name,
-                        image = it.campusEntity.image,
                         link = it.campusEntity.link,
                         institution = it.institution.toDomain(),
                         address = it.address.toDomain(),
