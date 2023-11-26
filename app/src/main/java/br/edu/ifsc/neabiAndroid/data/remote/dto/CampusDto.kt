@@ -9,9 +9,6 @@ data class CampusDto(
     @Json(name = "nome")
     val name: String,
 
-    @Json(name = "foto")
-    val image: String = "",
-
     val link: String = "",
 
     @Json(name = "instituicao")
@@ -26,6 +23,9 @@ data class CampusDto(
     @Json(name = "cursos")
     val courses: List<CoursesDto> = listOf(),
 
+    @Json(name = "fotos")
+    val imageDto: List<ImageDto> = listOf(),
+
     @Json(name = "programas")
     val programDto: List<ProgramDto> = listOf(),
 
@@ -34,12 +34,11 @@ data class CampusDto(
 
     @Json(name = "acoes_afirmativas")
     val studentAssistanceDto: List<StudentAssistanceDto> = listOf(),
-){
+) {
     fun toEntity(): CampusEntity {
         return CampusEntity(
             pk = pk,
             name = name,
-            image = image,
             link = link,
             institutionPk = institution,
             addressPk = addressDto.pk,

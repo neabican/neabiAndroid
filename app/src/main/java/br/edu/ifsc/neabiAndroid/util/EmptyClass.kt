@@ -39,7 +39,6 @@ object EmptyClass {
         0,
         "",
         "",
-        "www.google.com",
         Institution(
             0,
             "",

@@ -35,5 +35,10 @@ data class AllCampusInfo(
         parentColumn = "pk",
         entityColumn = "campusPk"
     )
-    val studentAid: List<StudentAssistanceEntity>
+    val studentAid: List<StudentAssistanceEntity>,
+    @Relation(
+        parentColumn = "pk",
+        entityColumn = "campusPk"
+    )
+    val image: List<ImageEntity>
 )

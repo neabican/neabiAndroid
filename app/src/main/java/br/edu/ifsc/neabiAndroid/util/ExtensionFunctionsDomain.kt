@@ -23,12 +23,12 @@ fun AllCampusInfo.toDomain(): Campus {
     return Campus(
         pk = campus.pk,
         name = campus.name,
-        image = campus.image,
         link = campus.link,
         description = campus.description,
         institution = institution.toDomain(),
         address = address.toDomain(),
         courses = courses.toDomain(),
+        image = image.toDomain(campus.pk),
         program = program.toDomain(),
         project = project.toDomain(),
         studentAssistence = studentAid.toDomain()
@@ -43,7 +43,7 @@ fun CourseEntity.toDomain(): Course {
     )
 }
 
-fun List<CourseEntity>.toDomain(): List<Course>{
+fun List<CourseEntity>.toDomain(): List<Course> {
     return map {
         it.toDomain()
     }
@@ -56,7 +56,7 @@ fun DBVersionDto.toDomain(): DBVersion {
     )
 }
 
-fun List<ProjectDto>.toEntity(): List<ProjectEntity>{
+fun List<ProjectDto>.toEntity(): List<ProjectEntity> {
     return map {
         ProjectEntity(
             pk = it.pk,
@@ -69,8 +69,8 @@ fun List<ProjectDto>.toEntity(): List<ProjectEntity>{
 }
 
 @JvmName("toDomainCourseUnion")
-fun List<CourseUnion>.toDomain(): List<Courses>{
-    return map{
+fun List<CourseUnion>.toDomain(): List<Courses> {
+    return map {
         Courses(
             pk = it.coursesEntity.pk,
             link = it.coursesEntity.link,
@@ -82,9 +82,20 @@ fun List<CourseUnion>.toDomain(): List<Courses>{
     }
 }
 
+@JvmName("toDomainImageEntity")
+fun List<ImageEntity>.toDomain(idCampus: Int): List<Image> {
+    return map {
+        Image(
+            pk = it.pk,
+            photo = it.photo,
+            campus = idCampus
+        )
+    }
+}
+
 @JvmName("toDomainProgramEntity")
-fun List<ProgramEntity>.toDomain(): List<Program>{
-    return map{
+fun List<ProgramEntity>.toDomain(): List<Program> {
+    return map {
         Program(
             pk = it.pk,
             name = it.name,
@@ -96,8 +107,8 @@ fun List<ProgramEntity>.toDomain(): List<Program>{
 }
 
 @JvmName("toDomainProjectEntity")
-fun List<ProjectEntity>.toDomain(): List<Project>{
-    return map{
+fun List<ProjectEntity>.toDomain(): List<Project> {
+    return map {
         Project(
             pk = it.pk,
             name = it.name,
@@ -109,8 +120,8 @@ fun List<ProjectEntity>.toDomain(): List<Project>{
 }
 
 @JvmName("toDomainStudentAidEntity")
-fun List<StudentAssistanceEntity>.toDomain(): List<StudentAssistence>{
-    return map{
+fun List<StudentAssistanceEntity>.toDomain(): List<StudentAssistence> {
+    return map {
         StudentAssistence(
             pk = it.pk,
             name = it.name,
