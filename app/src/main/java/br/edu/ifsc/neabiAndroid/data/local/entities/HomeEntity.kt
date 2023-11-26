@@ -15,5 +15,10 @@ data class HomeEntity(
         parentColumn = "addressPk",
         entityColumn = "pk"
     )
-    val address: AddressEntity
+    val address: AddressEntity,
+    @Relation(
+        parentColumn = "pk",
+        entityColumn = "campusPk"
+    )
+    val image: List<ImageEntity>
 )
