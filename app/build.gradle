@@ -8,7 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "br.edu.ifsc.neabiAndroid"
+        applicationId "br.edu.ifsc.aquilombar"
         minSdk 23
         targetSdk 33
         versionCode 1

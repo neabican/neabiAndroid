@@ -8,6 +8,7 @@
 *.class
 .gradle
 /local.properties
+.idea
 /.idea/caches
 .idea/caches
 /.idea/libraries
