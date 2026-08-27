@@ -35,9 +35,6 @@
 3. Certifique-se de ter as versões corretas do Kotlin configuradas.
 4. No arquivo `app/src/main/AndroidManifest.xml`, na linha 27, dentro de `<meta-data>`, adicione a chave de API da Google Geocoding API no atributo `android:value`.
 
-   Exemplo:
-   ```
-
 ## Autores e Equipe do Projeto
 
 ### Coordenação e Gestão
@@ -51,6 +48,6 @@
 
 ### Equipe de Desenvolvimento (Discentes Bolsistas)
 - **Bruno Perdona** — Desenvolvedor Android e Web
-- **Eduardo Henrique de Oliveira** — Desenvolvedor Web ()
+- **Eduardo Henrique de Oliveira** — Desenvolvedor Web 
 - **Emanuel Jesus Santos** — Desenvolvedor Android e Web
 - **Gustavo Ziger** — Desenvolvedor Android e Web
