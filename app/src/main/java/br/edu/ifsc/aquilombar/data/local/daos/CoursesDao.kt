@@ -3,7 +3,7 @@ package br.edu.ifsc.aquilombar.data.local.daos
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import br.edu.ifsc.aquilombar.data.local.entities.CourseUnion
 import br.edu.ifsc.aquilombar.data.local.entities.CoursesEntity
@@ -23,6 +23,6 @@ interface CoursesDao {
     @Query("DELETE FROM courses")
     suspend fun clearTable()
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCourses(courses: List<CoursesEntity>)
 }

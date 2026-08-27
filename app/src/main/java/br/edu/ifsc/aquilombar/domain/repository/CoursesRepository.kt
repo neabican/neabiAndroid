@@ -1,7 +1,7 @@
 package br.edu.ifsc.aquilombar.domain.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import br.edu.ifsc.aquilombar.data.local.daos.CoursesDao
 import br.edu.ifsc.aquilombar.domain.model.Courses
 import br.edu.ifsc.aquilombar.util.toDomain
@@ -17,7 +17,7 @@ class CoursesRepository(private val dao: CoursesDao){
     suspend fun getCourseUnion(coursesPk: Int): LiveData<Courses>{
         var course: LiveData<Courses>
         withContext(Dispatchers.Default){
-            course = Transformations.map(dao.getCourseUnion(coursesPk)){
+            course = dao.getCourseUnion(coursesPk).map {
                 Courses(
                     pk = it.coursesEntity.pk,
                     link = it.coursesEntity.link,

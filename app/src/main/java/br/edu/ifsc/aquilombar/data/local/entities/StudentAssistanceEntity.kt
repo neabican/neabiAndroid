@@ -2,7 +2,6 @@ package br.edu.ifsc.aquilombar.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity(
@@ -12,8 +11,8 @@ import androidx.room.PrimaryKey
             entity = CampusEntity::class,
             parentColumns = arrayOf("pk"),
             childColumns = arrayOf("campusPk"),
-            onDelete = CASCADE,
-            onUpdate = CASCADE
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         )
     ]
 )

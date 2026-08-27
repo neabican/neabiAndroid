@@ -3,7 +3,10 @@ package br.edu.ifsc.aquilombar.ui.course.detail
 import android.widget.TextView
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,7 +33,7 @@ fun CourseCampusView(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LazyVerticalGrid(cells = GridCells.Fixed(2), content = {
+    LazyVerticalGrid(columns = GridCells.Fixed(2), content = {
             item(span = {
                 GridItemSpan(2)
             }) {

@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import br.edu.ifsc.aquilombar.ui.components.SearchField
 import br.edu.ifsc.aquilombar.ui.home.components.CampusCard
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -47,6 +48,7 @@ fun HomeView(
                 Lifecycle.Event.ON_START -> {
                     permissionState.launchPermissionRequest()
                 }
+                else -> {}
             }
         }
         lifecycleOwner.lifecycle.addObserver(eventObserver)
@@ -85,19 +87,22 @@ fun HomeView(
                     modifier = Modifier.fillMaxSize(),
                     cameraPositionState = cameraPositionState,
                     properties = MapProperties(
-                        isMyLocationEnabled = permissionState.hasPermission
+                        isMyLocationEnabled = permissionState.status.isGranted
                     ),
                     uiSettings = MapUiSettings(
                         compassEnabled = true,
-                        myLocationButtonEnabled = permissionState.hasPermission
+                        myLocationButtonEnabled = permissionState.status.isGranted
                     )
                 ) {
                     campusList.forEach { campus ->
-                        Marker(
+                        val markerState = rememberMarkerState(
                             position = LatLng(
                                 campus.address.latitude.toDouble(),
                                 campus.address.longitude.toDouble()
-                            ),
+                            )
+                        )
+                        Marker(
+                            state = markerState,
                             title = campus.institution.initials,
                             snippet = campus.name,
                             onInfoWindowLongClick = {

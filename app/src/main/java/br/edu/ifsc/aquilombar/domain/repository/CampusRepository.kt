@@ -1,7 +1,7 @@
 package br.edu.ifsc.aquilombar.domain.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import br.edu.ifsc.aquilombar.data.local.daos.CampusDao
 import br.edu.ifsc.aquilombar.domain.model.Campus
 import br.edu.ifsc.aquilombar.util.EmptyClass
@@ -27,7 +27,7 @@ class CampusRepository(private val dao: CampusDao) {
     suspend fun getCampus(campusPk: Int): LiveData<Campus> {
         var campus: LiveData<Campus>
         withContext(Dispatchers.Default) {
-            campus = Transformations.map(dao.getCampus(campusPk)) {
+            campus = dao.getCampus(campusPk).map {
                 Campus(
                     pk = it.campus.pk,
                     name = it.campus.name,

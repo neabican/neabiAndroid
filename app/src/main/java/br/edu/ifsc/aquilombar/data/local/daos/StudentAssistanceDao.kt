@@ -3,7 +3,7 @@ package br.edu.ifsc.aquilombar.data.local.daos
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import br.edu.ifsc.aquilombar.data.local.entities.StudentAssistanceEntity
 
@@ -16,6 +16,6 @@ interface StudentAssistanceDao {
     @Query("DELETE FROM studentAssistance")
     suspend fun clearTable()
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllStudentAid(actions: List<StudentAssistanceEntity>)
 }

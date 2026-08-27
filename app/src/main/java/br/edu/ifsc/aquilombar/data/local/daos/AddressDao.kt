@@ -3,7 +3,7 @@ package br.edu.ifsc.aquilombar.data.local.daos
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import br.edu.ifsc.aquilombar.data.local.entities.AddressEntity
 
@@ -16,6 +16,6 @@ interface AddressDao {
     @Query("DELETE FROM address")
     suspend fun clearTable()
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllAddress(address: List<AddressEntity>)
 }

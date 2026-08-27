@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -37,13 +38,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val splashViewModel by viewModels<SplashViewModel>(){
+        val splashViewModel by viewModels<SplashViewModel> {
             SplashVMFactory(
                 (this.applicationContext as NeabiAndroid).initialRepository
             )
         }
 
-        val homeViewModel by viewModels<HomeViewModel>(){
+        val homeViewModel by viewModels<HomeViewModel> {
             HomeVMFactory(
                 (this.applicationContext as NeabiAndroid).homeRepository
             )
@@ -55,19 +56,19 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        val coursesViewModel by viewModels<CoursesViewModel>(){
+        val coursesViewModel by viewModels<CoursesViewModel> {
             CoursesVMFactory(
                 (this.applicationContext as NeabiAndroid).coursesRepository
             )
         }
 
-        val courseViewModel by viewModels<CourseListViewModel>(){
+        val courseViewModel by viewModels<CourseListViewModel> {
             CourseVMFactory(
                 (this.applicationContext as NeabiAndroid).courseRepository
             )
         }
 
-        val courseCampusViewModel by viewModels<CourseCampusViewModel>(){
+        val courseCampusViewModel by viewModels<CourseCampusViewModel> {
             CourseCampusVMFactory(
                 (this.applicationContext as NeabiAndroid).courseRepository,
                 (this.applicationContext as NeabiAndroid).coursesRepository,
@@ -144,8 +145,12 @@ fun NeabicanApp(
                     }
                 )
             }
-        ) {
-            NavHost(navController = navController, startDestination = "home") {
+        ) { padding ->
+            NavHost(
+                navController = navController,
+                startDestination = "home",
+                modifier = Modifier.padding(padding)
+            ) {
                 composable("home") {
                     HomeView(
                         homeViewModel,
